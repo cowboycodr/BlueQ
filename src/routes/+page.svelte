@@ -7,25 +7,13 @@
 	import { Label } from '$ui/label';
 </script>
 
-<!-- <div class="container pt-10">
-	<div class="max-w-[300px] space-y-2">
-		<div>
-			<h1 class="text-5xl font-semibold">
-				<span>Blue</span><span class="text-blue-600">Q</span>
-			</h1>
-			<p>Effective communication to the masses.</p>
-		</div>
-		<div class="space-y-1">
-			<Label>Email</Label>
-			<Input placeholder="example@email.com" type="email" />
-            <Button>Submit</Button>
-		</div>
-	</div>
-</div> -->
+<svelte:head>
+	<title>Early Access / BlueQ</title>
+</svelte:head>
 
-<div class="flex">
-	<div class="flex h-svh w-[50%] items-center justify-center">
-		<div class="w-[350px]">
+<div class="flex flex-col md:flex-row">
+	<div class="flex h-svh items-center justify-center md:w-[50%]">
+		<div class="w-full p-2 md:w-[350px] md:p-0">
 			<h1 class="text-3xl font-semibold">
 				<span>Blue</span><span class="text-blue-600">Q</span>
 			</h1>
@@ -34,25 +22,19 @@
 			</p>
 		</div>
 	</div>
-	<div class="flex h-svh w-[50%] items-center justify-center bg-gray-100">
-        <Card.Root class="w-[350px]">
-            <Card.Header>
-                <Card.Title>
-                    Early access
-                </Card.Title>
-                <Card.Description>
-                    Get notified when we're ready.
-                </Card.Description>
-            </Card.Header>
-            <Card.Content>
-                <Label>Email</Label>
-                <Input placeholder="example@email.com" type="email"></Input>
-            </Card.Content>
-            <Card.Footer class="flex justify-end">
-                <Button>
-                    Submit
-                </Button>
-            </Card.Footer>
-        </Card.Root>
-    </div>
+	<div class="flex h-svh items-center justify-center bg-gray-100 p-2 md:w-[50%] md:p-0">
+		<Card.Root class="w-full md:w-[350px]">
+			<Card.Header>
+				<Card.Title>Waitlist</Card.Title>
+				<Card.Description>Be the first to use BlueQ.</Card.Description>
+			</Card.Header>
+			<Card.Content>
+				<Label>Email</Label>
+				<Input placeholder="Enter your email" type="email" />
+			</Card.Content>
+			<Card.Footer class="flex justify-end">
+				<Button>Join</Button>
+			</Card.Footer>
+		</Card.Root>
+	</div>
 </div>

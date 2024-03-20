@@ -3,20 +3,33 @@
 	import { faGoogle } from '@fortawesome/free-brands-svg-icons';
 	import { faGithub } from '@fortawesome/free-brands-svg-icons';
 
+	import SplitScreen from '$lib/layouts/split-screen.svelte';
+
 	import { Button } from '$ui/button';
 	import * as Card from '$ui/card';
 	import { Separator } from '$ui/separator';
+
+	export let data;
 </script>
 
-<div class="w-svh flex h-svh items-center justify-center p-2">
-	<div class="w-full max-w-sm space-y-5">
-		<h1 class="text-center text-3xl font-semibold">
+<svelte:head>
+	<title>Sign in / BlueQ</title>
+</svelte:head>
+
+<SplitScreen>
+	<svelte:fragment slot="branding">
+		<h1 class="text-3xl font-semibold">
 			<span>Blue</span><span class="text-blue-600">Q</span>
 		</h1>
-		<Card.Root>
+		<p class="text-muted-foreground">
+			Transform anticipation into engagement, from waitlist to launch.
+		</p>
+	</svelte:fragment>
+	<svelte:fragment slot="content">
+		<Card.Root class="w-full md:w-[350px]">
 			<Card.Header>
 				<Card.Title>Sign in</Card.Title>
-				<Card.Description>Currently we only allow popular third-paty providers.</Card.Description>
+				<Card.Description>Currently we only allow popular third-party providers.</Card.Description>
 				<Separator />
 			</Card.Header>
 			<Card.Content class="space-y-2">
@@ -35,6 +48,9 @@
 					</Button>
 				</form>
 			</Card.Content>
+			<Card.Footer>
+				<Card.Description>More ways to sign in coming soon.</Card.Description>
+			</Card.Footer>
 		</Card.Root>
-	</div>
-</div>
+	</svelte:fragment>
+</SplitScreen>

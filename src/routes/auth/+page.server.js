@@ -1,7 +1,9 @@
 import { redirect } from "@sveltejs/kit";
 
 export const actions = {
-    async signin({ request, locals: { supabase } }) {
+    async signin({ url, request, locals: { supabase } }) {
+        const redirectTo = url.searchParams.get("q") || "";
+
         const formData = await request.formData();
         const provider = formData.get("provider");
 
@@ -13,6 +15,7 @@ export const actions = {
                         access_type: 'offline',
                         prompt: 'consent',
                     },
+                    redirectTo: `${url.origin}/auth/callback?${redirectTo}`
                 },
             });
 

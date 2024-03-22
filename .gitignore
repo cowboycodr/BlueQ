@@ -5,6 +5,7 @@ node_modules
 /.vercel
 /package
 .env
+pnpm-lock.yaml
 .env.*
 !.env.example
 vite.config.js.timestamp-*

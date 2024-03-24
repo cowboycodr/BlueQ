@@ -7,7 +7,7 @@
 
 	export let data;
 	let { profile, user, form } = data;
-    $: ({ profile, user, form } = data);
+	$: ({ profile, user, form } = data);
 </script>
 
 <svelte:head>
@@ -16,8 +16,8 @@
 
 <SplitScreen>
 	<svelte:fragment slot="left">
-		<h1 class="text-3xl font-semibold">Hi, {profile.full_name.split(" ")[0].slice(0, 16)}.</h1>
-		<p class="text-muted-foreground">Looking for a change?</p>
+		<h1 class="text-3xl font-semibold">Welcome.</h1>
+		<p class="text-muted-foreground">Let's get your account set up.</p>
 	</svelte:fragment>
 	<svelte:fragment slot="right">
 		<Card.Root>
@@ -31,7 +31,7 @@
 				email={user.email}
 				username={profile.username}
 				fullName={profile.full_name}
-				action="?/update"
+				action="?/setup"
 			/>
 		</Card.Root>
 	</svelte:fragment>

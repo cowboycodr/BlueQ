@@ -10,22 +10,8 @@ export const load = async () => {
 }
 
 export const actions = {
-    update: async ({ request, locals: { supabase, getUser } }) => {
+    setup: async ({ request, locals: { supabase, getUser } }) => {
         const user = await getUser();
-        const profile = await (async () => {
-            const { data, error } = await supabase
-                .from("profiles")
-                .select("*")
-                .eq("id", user.id)
-                .single();
-
-            if (error) {
-                console.error('Error fetching data:', error);
-                throw error; // or return false depending on how you want to handle errors
-            }
-
-            return data;
-        })();
 
         const form = await superValidate(request, zod(userSchema));
 
@@ -40,10 +26,6 @@ export const actions = {
         const fullName = form.data.full_name;
 
         const is_username_taken = await (async () => {
-            if (profile.username === username) {
-                return false;
-            }
-
             const { data, error } = await supabase
                 .from("profiles")
                 .select("*")

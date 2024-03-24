@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export const formSchema = z.object({
+export const userSchema = z.object({
     username: z.string()
         .min(2, "Username is too short. It must contain at least 2 characters.")
         .max(24, "Username is too long. It must not exceed 24 characters.") // Adjusted the error message to match the max limit

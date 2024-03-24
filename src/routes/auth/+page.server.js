@@ -1,5 +1,15 @@
 import { redirect } from "@sveltejs/kit";
 
+export const load = async ({ locals: { getSession } }) => {
+    const session = await getSession();
+
+    if (session) {
+        throw redirect(303, "/dashboard");
+    }
+
+    return {};
+}
+
 export const actions = {
     async signin({ url, request, locals: { supabase } }) {
         const redirectTo = url.searchParams.get("q") || "";

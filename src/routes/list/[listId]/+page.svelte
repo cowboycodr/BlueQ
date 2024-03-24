@@ -4,9 +4,7 @@
 	import { Input } from '$ui/input';
 	import { Label } from '$ui/label';
 
-	import SplitScreen from '$lib/layouts/split-screen.svelte';
-
-	export let data;
+	import { SplitScreen } from '$components/layouts';
 </script>
 
 <svelte:head>
@@ -14,7 +12,7 @@
 </svelte:head>
 
 <SplitScreen>
-	<svelte:fragment slot="branding">
+	<svelte:fragment slot="left">
 		<h1 class="text-3xl font-semibold">
 			<span>Blue</span><span class="text-blue-600">Q</span>
 		</h1>
@@ -22,7 +20,7 @@
 			Transform anticipation into engagement, from waitlist to launch.
 		</p>
 	</svelte:fragment>
-	<svelte:fragment slot="content">
+	<svelte:fragment slot="right">
 		<Card.Root class="w-full md:w-[350px]">
 			<Card.Header>
 				<Card.Title>Waitlist</Card.Title>

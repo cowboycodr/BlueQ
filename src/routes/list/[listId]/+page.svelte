@@ -5,8 +5,6 @@
 	import { Label } from '$ui/label';
 
 	import { SplitScreen } from '$components/layouts';
-
-	export let data;
 </script>
 
 <svelte:head>

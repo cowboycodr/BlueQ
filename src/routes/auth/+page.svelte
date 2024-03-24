@@ -8,8 +8,6 @@
 	import { Button } from '$ui/button';
 	import * as Card from '$ui/card';
 	import { Separator } from '$ui/separator';
-
-	export let data;
 </script>
 
 <svelte:head>

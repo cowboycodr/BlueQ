@@ -18,7 +18,7 @@ export const load = async ({ locals: { supabase, getUser } }) => {
     })();
 
     if (!profile.is_setup) {
-        throw redirect(303, `/account/update`);
+        throw redirect(303, `/account/setup`);
     }
 
     return {

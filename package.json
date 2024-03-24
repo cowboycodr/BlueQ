@@ -30,12 +30,16 @@
     "@supabase/auth-helpers-sveltekit": "^0.12.0",
     "@supabase/supabase-js": "^2.39.7",
     "bits-ui": "^0.20.0",
+    "canvas": "^2.11.2",
     "clsx": "^2.1.0",
+    "formsnap": "^0.5.1",
     "lucide-svelte": "^0.344.0",
     "moment": "^2.30.1",
     "svelte-fa": "^4.0.2",
     "svelte-sonner": "^0.3.19",
+    "sveltekit-superforms": "^2.11.0",
     "tailwind-merge": "^2.2.1",
-    "tailwind-variants": "^0.2.0"
+    "tailwind-variants": "^0.2.0",
+    "zod": "^3.22.4"
   }
 }

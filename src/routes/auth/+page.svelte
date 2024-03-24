@@ -3,7 +3,7 @@
 	import { faGoogle } from '@fortawesome/free-brands-svg-icons';
 	import { faGithub } from '@fortawesome/free-brands-svg-icons';
 
-	import SplitScreen from '$lib/layouts/split-screen.svelte';
+	import { SplitScreen } from '$components/layouts';
 
 	import { Button } from '$ui/button';
 	import * as Card from '$ui/card';
@@ -17,7 +17,7 @@
 </svelte:head>
 
 <SplitScreen>
-	<svelte:fragment slot="branding">
+	<svelte:fragment slot="left">
 		<h1 class="text-3xl font-semibold">
 			<span>Blue</span><span class="text-blue-600">Q</span>
 		</h1>
@@ -25,7 +25,7 @@
 			Transform anticipation into engagement, from waitlist to launch.
 		</p>
 	</svelte:fragment>
-	<svelte:fragment slot="content">
+	<svelte:fragment slot="right">
 		<Card.Root class="w-full md:w-[350px]">
 			<Card.Header>
 				<Card.Title>Sign in</Card.Title>

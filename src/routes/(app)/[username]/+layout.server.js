@@ -1,6 +1,8 @@
 import { redirect } from "@sveltejs/kit";
 
-export const load = async ({ locals: { supabase, getUser } }) => {
+export const load = async ({ params, locals: { supabase, getUser } }) => {
+    const { username } = params;
+
     const user = await getUser();
 
     if (!user) {
@@ -16,6 +18,10 @@ export const load = async ({ locals: { supabase, getUser } }) => {
 
         return data;
     })();
+
+    if (username !== profile.username) {
+        throw redirect(303, `/auth`);
+    }
 
     if (!profile.is_setup) {
         throw redirect(303, `/account/setup`);

@@ -1,9 +1,11 @@
 import { redirect } from "@sveltejs/kit";
 
-export const load = async ({ locals: { supabase, getUser } }) => {
-    const user = await getUser();
+export const load = async ({ params, locals: { supabase, getSession } }) => {
+    const { username } = params;
 
-    if (!user) {
+    const session = await getSession();
+
+    if (!session) {
         throw redirect(303, "/auth");
     }
 
@@ -11,18 +13,21 @@ export const load = async ({ locals: { supabase, getUser } }) => {
         const { data, error } = await supabase
             .from("profiles")
             .select("*")
-            .eq("id", user.id)
+            .eq("id", session.user.id)
             .single();
 
         return data;
     })();
+
+    if (username !== profile.username) {
+        throw redirect(303, `/auth`);
+    }
 
     if (!profile.is_setup) {
         throw redirect(303, `/account/setup`);
     }
 
     return {
-        user,
         profile
     }
 }

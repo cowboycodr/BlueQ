@@ -7,5 +7,5 @@ export const load = async ({ locals: { getSession } }) => {
         throw redirect(303, "/auth");
     }
 
-    throw redirect(303, "/list/q");
+    throw redirect(303, "/dashboard");
 }

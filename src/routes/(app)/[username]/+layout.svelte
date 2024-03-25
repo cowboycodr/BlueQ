@@ -1,10 +1,12 @@
 <script>
-    import { SideBar } from "$components/nav";
+	import { SideBar } from '$components/nav';
+
+    export let data;
+    let { profile } = data;
+    $: ({ profile } = data);
 </script>
 
 <div class="flex">
-    <SideBar></SideBar>
-    <div class="container mx-auto p-2">
-        <slot />
-    </div>
+	<SideBar {profile}></SideBar>
+	<slot />
 </div>

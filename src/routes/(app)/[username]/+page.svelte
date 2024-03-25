@@ -15,19 +15,26 @@
 	</title>
 </svelte:head>
 
-<div class="grid grid-cols-2 gap-2">
-	<Card.Root>
-		<Card.Header>
-			<Card.Description>Landing page visits</Card.Description>
-			<Card.Title>+22,384</Card.Title>
-		</Card.Header>
-		<Card.Content>[ chart ]</Card.Content>
-	</Card.Root>
-	<Card.Root>
-		<Card.Header>
-			<Card.Description>Email list subscribers</Card.Description>
-			<Card.Title>+3,284</Card.Title>
-		</Card.Header>
-		<Card.Content>[ chart ]</Card.Content>
-	</Card.Root>
+<div class="w-full space-y-2">
+	<h1 class=" p-2 pb-0 text-lg font-semibold">
+		Dashboard
+	</h1>
+	<div class="container mx-auto px-2">
+		<div class="grid grid-cols-2 gap-2">
+			<Card.Root>
+				<Card.Header>
+					<Card.Description>Landing page visits</Card.Description>
+					<Card.Title>+22,384</Card.Title>
+				</Card.Header>
+				<Card.Content>[ chart ]</Card.Content>
+			</Card.Root>
+			<Card.Root>
+				<Card.Header>
+					<Card.Description>Email list subscribers</Card.Description>
+					<Card.Title>+3,284</Card.Title>
+				</Card.Header>
+				<Card.Content>[ chart ]</Card.Content>
+			</Card.Root>
+		</div>
+	</div>
 </div>

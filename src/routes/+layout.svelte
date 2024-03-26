@@ -45,6 +45,23 @@
 	});
 </script>
 
+<svelte:head>
+	<link
+		rel="preload"
+		href="/fonts/geist/Geist-Regular.woff2"
+		as="font"
+		type="font/woff2"
+		crossorigin="anonymous"
+	/>
+	<link
+		rel="preload"
+		href="/fonts/geist/Geist-SemiBold.woff2"
+		as="font"
+		type="font/woff2"
+		crossorigin="anonymous"
+	/>
+</svelte:head>
+
 <Toaster position="top-center" />
 
 <slot />

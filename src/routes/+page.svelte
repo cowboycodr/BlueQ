@@ -6,10 +6,11 @@
 
 	import { Button } from '$ui/button';
 	import * as Card from '$ui/card';
-	import { Input } from '$ui/input';
-	import { Label } from '$ui/label';
-	import { Separator } from '$ui/separator';
 </script>
+
+<svelte:head>
+	<title>Welcome - BlueQ</title>
+</svelte:head>
 
 <SplitScreen>
 	<div slot="left">
@@ -25,14 +26,16 @@
 				<Card.Description>Let's get you signed in.</Card.Description>
 			</Card.Header>
 			<Card.Content class="space-y-2">
-				<Button class="w-full space-x-1" variant="secondary">
-					<Fa icon={faGoogle} />
-					<div>Google</div>
-				</Button>
-				<Button class="w-full space-x-1" variant="secondary" disabled>
-					<Fa icon={faGithub} />
-					<div>Github</div>
-				</Button>
+				<form method="POST" class="space-y-2">
+					<Button class="w-full space-x-1" variant="secondary">
+						<Fa icon={faGoogle} />
+						<div>Google</div>
+					</Button>
+					<Button class="w-full space-x-1" variant="secondary" disabled>
+						<Fa icon={faGithub} />
+						<div>Github</div>
+					</Button>
+				</form>
 			</Card.Content>
 		</Card.Root>
 	</div>

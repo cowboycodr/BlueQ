@@ -1,4 +1,6 @@
 <script>
+	import { enhance } from '$app/forms';
+
 	import Fa from 'svelte-fa';
 	import { faGithub, faGoogle } from '@fortawesome/free-brands-svg-icons';
 
@@ -26,14 +28,14 @@
 				<Card.Description>Let's get you signed in.</Card.Description>
 			</Card.Header>
 			<Card.Content class="space-y-2">
-				<form method="POST" action="/">
+				<form method="POST" use:enhance>
 					<input type="hidden" name="provider" value="google" />
 					<Button class="w-full space-x-1" variant="secondary" type="submit">
 						<Fa icon={faGoogle} />
 						<span>Google</span>
 					</Button>
 				</form>
-				<form method="POST" action="/">
+				<form method="POST" use:enhance>
 					<input type="hidden" name="provider" value="github" />
 					<Button class="w-full space-x-1" variant="secondary" type="submit" disabled>
 						<Fa icon={faGithub} />

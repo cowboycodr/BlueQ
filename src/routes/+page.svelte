@@ -26,17 +26,24 @@
 				<Card.Description>Let's get you signed in.</Card.Description>
 			</Card.Header>
 			<Card.Content class="space-y-2">
-				<form method="POST" class="space-y-2">
-					<Button class="w-full space-x-1" variant="secondary">
+				<form method="POST" action="/">
+					<input type="hidden" name="provider" value="google" />
+					<Button class="w-full space-x-1" variant="secondary" type="submit">
 						<Fa icon={faGoogle} />
-						<div>Google</div>
+						<span>Google</span>
 					</Button>
-					<Button class="w-full space-x-1" variant="secondary" disabled>
+				</form>
+				<form method="POST" action="/">
+					<input type="hidden" name="provider" value="github" />
+					<Button class="w-full space-x-1" variant="secondary" type="submit" disabled>
 						<Fa icon={faGithub} />
-						<div>Github</div>
+						<span>Github</span>
 					</Button>
 				</form>
 			</Card.Content>
+			<Card.Footer>
+				<Card.Description>More ways to sign in coming soon...</Card.Description>
+			</Card.Footer>
 		</Card.Root>
 	</div>
 </SplitScreen>

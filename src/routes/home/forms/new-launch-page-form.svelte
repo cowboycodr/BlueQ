@@ -1,6 +1,8 @@
 <script>
 	import DialogForm from './dialog-form.svelte';
 	import { createSuperForm } from './utils';
+	import { superForm } from 'sveltekit-superforms';
+	import { zodClient } from 'sveltekit-superforms/adapters';
 	import { launchPageFormSchema } from './schemas';
 
 	import { Input } from '$ui/input';
@@ -10,13 +12,15 @@
 	let data;
 	export { data as form };
 
-	const form = createSuperForm(data, launchPageFormSchema);
-	const { form: formData } = form;
+	const form = superForm(data, {
+		validators: zodClient(launchPageFormSchema)
+	});
+	const { form: formData, enhance } = form;
 </script>
 
-<DialogForm {form} action="newProject" on:close>
+<DialogForm on:close>
 	<svelte:fragment slot="title">New Launch Page</svelte:fragment>
-	<svelte:fragment slot="form">
+	<form method="POST" action="?/newProject">
 		<Form.Field {form} name="title">
 			<Form.Control let:attrs>
 				<Form.Label>Title</Form.Label>
@@ -69,6 +73,6 @@
 			<Form.Description>This caption that will appear on your landing page.</Form.Description>
 			<Form.FieldErrors />
 		</Form.Field>
-		<Form.Button>Create</Form.Button>
-	</svelte:fragment>
+		<Form.Button>Submit</Form.Button>
+	</form>
 </DialogForm>

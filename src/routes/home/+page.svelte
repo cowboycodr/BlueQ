@@ -10,8 +10,7 @@
 	import * as Dropdown from '$ui/dropdown-menu';
 
 	export let data;
-	let { projects, launchPageForm } = data;
-	$: ({ projects, launchPageForm } = data);
+	const { projects } = data;
 
 	let showNewLaunchPageForm = true;
 </script>
@@ -73,7 +72,7 @@
 
 {#if showNewLaunchPageForm}
 	<NewLaunchPageForm
-		form={launchPageForm}
+		form={data.launchPageForm}
 		on:close={() => {
 			showNewLaunchPageForm = false;
 		}}

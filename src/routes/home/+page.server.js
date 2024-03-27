@@ -1,4 +1,4 @@
-import { superValidate } from 'sveltekit-superforms';
+import { superValidate, fail } from 'sveltekit-superforms';
 import { zod } from "sveltekit-superforms/adapters";
 import { launchPageFormSchema } from './forms/schemas.js';
 
@@ -23,5 +23,18 @@ export const load = async ({ locals: { supabase, getSession } }) => {
 }
 
 export const actions = {
+    newProject: async (event) => {
+        const form = await superValidate(event, zod(launchPageFormSchema));
 
-}
+
+        if (!form.valid) {
+            return fail(400, {
+                launchPageForm: form,
+            });
+        }
+
+        return {
+            launchPageForm: form,
+        };
+    },
+};

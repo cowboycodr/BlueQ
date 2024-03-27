@@ -1,21 +1,36 @@
 <script>
 	import { Rocket, Mails } from 'lucide-svelte';
+
 	import * as Card from '$ui/card';
+	import * as Table from '$ui/table';
+
 	export let projects;
 </script>
 
-<div class="grid gap-2 md:grid-cols-3">
-	{#each projects as project}
-		<a href={`/${project.id}`}>
-			<Card.Root>
-				<Card.Header>
-					<div class="flex space-x-1">
-						<svelte:component this={project.type === 'launch' ? Rocket : Mails} size={16} />
-						<Card.Title>{project.title}</Card.Title>
-					</div>
-					<Card.Description>0 subscribers</Card.Description>
-				</Card.Header>
-			</Card.Root>
-		</a>
-	{/each}
-</div>
+<Table.Root>
+	<Table.Caption>A list of your projects.</Table.Caption>
+	<Table.Header>
+		<Table.Row>
+			<Table.Head class="w-[250px]">Title</Table.Head>
+			<Table.Head>Type</Table.Head>
+			<Table.Head class="text-right md:text-left">Subscribers</Table.Head>
+		</Table.Row>
+	</Table.Header>
+	<Table.Body>
+		{#each projects as project}
+			<Table.Row>
+				<Table.Cell>{project.title}</Table.Cell>
+				<Table.Cell class="flex items-center space-x-1 text-muted-foreground">
+					{#if project.type === 'launch'}
+						<Rocket size={16} />
+						<span> Launch Page </span>
+					{:else}
+						<Mails size={16} />
+                        <span> Mailing List </span>
+					{/if}
+				</Table.Cell>
+                <Table.Cell class="text-right md:text-left">{0}</Table.Cell>
+			</Table.Row>
+		{/each}
+	</Table.Body>
+</Table.Root>

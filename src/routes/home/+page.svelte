@@ -5,7 +5,9 @@
 	import * as Card from '$ui/card';
 	import * as Dropdown from '$ui/dropdown-menu';
 
-	let projects = [0];
+	export let data;
+	let { projects } = data;
+	$: ({ projects } = data);
 </script>
 
 <div class="container mx-auto p-2">
@@ -16,7 +18,7 @@
 		<div class="flex items-center space-x-1">
 			<Dropdown.Root>
 				<Dropdown.Trigger>
-					<Button class="flex space-x-1" variant="secondary">
+					<Button class="flex space-x-1">
 						<ChevronDown size={16} />
 						<span> New </span>
 					</Button>

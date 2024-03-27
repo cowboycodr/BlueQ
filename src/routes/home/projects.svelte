@@ -1,5 +1,5 @@
 <script>
-	import { Rocket, Mails, LucideSquareArrowOutUpRight } from 'lucide-svelte';
+	import { Rocket, Mails, LucideSquareArrowOutUpRight, Link } from 'lucide-svelte';
 
 	import * as Card from '$ui/card';
 	import * as Table from '$ui/table';
@@ -13,6 +13,7 @@
 		<Table.Row>
 			<Table.Head class="w-[250px]">Title</Table.Head>
 			<Table.Head>Type</Table.Head>
+			<Table.Head>Link</Table.Head>
 			<Table.Head class="text-right md:text-left">Subscribers</Table.Head>
 		</Table.Row>
 	</Table.Header>
@@ -33,6 +34,16 @@
 						<Mails size={16} />
 						<span> Mailing List </span>
 					{/if}
+				</Table.Cell>
+				<Table.Cell>
+					<div
+						class="flex w-min items-center space-x-1 rounded-md bg-muted p-1 text-muted-foreground"
+					>
+						<a href="/q/${project.short_code}">
+							blueq.app/{project.short_code}
+						</a>
+						<Link size={12} />
+					</div>
 				</Table.Cell>
 				<Table.Cell class="text-right md:text-left">{0}</Table.Cell>
 			</Table.Row>

@@ -1,8 +1,6 @@
 <script>
 	import DialogForm from './dialog-form.svelte';
 	import { createSuperForm } from './utils';
-	import { superForm } from 'sveltekit-superforms';
-	import { zodClient } from 'sveltekit-superforms/adapters';
 	import { launchPageFormSchema } from './schemas';
 
 	import { Input } from '$ui/input';
@@ -12,9 +10,7 @@
 	let data;
 	export { data as form };
 
-	const form = superForm(data, {
-		validators: zodClient(launchPageFormSchema)
-	});
+    const form = createSuperForm(data, launchPageFormSchema);
 	const { form: formData, enhance } = form;
 </script>
 
@@ -32,41 +28,12 @@
 			</Form.Control>
 			<Form.FieldErrors />
 		</Form.Field>
-		<!-- <Form.Field {form} name="domain">
-			<Form.Control let:attrs>
-				<Form.Label>Domain</Form.Label>
-				<Input
-					{...attrs}
-					bind:value={$formData.domain}
-					placeholder="Enter your project domain here..."
-					on:keydown={(e) => {
-                        if ($formData.domain.length >= 32 && e.key !== 'Backspace') {
-                            e.preventDefault();
-                            return;
-                        }
-
-						if (e.key === ' ') {
-							e.preventDefault();
-							$formData.domain += '-';
-						}
-					}}
-				/>
-			</Form.Control>
-            <Form.Description>
-                This is the subdomain where your Launch Page will be hosted.
-            </Form.Description>
-			<Form.Description>
-                {#if $formData.domain}
-                    <strong>{$formData.domain}.blueq.app</strong>
-                {/if}
-			</Form.Description>
-		</Form.Field> -->
-		<Form.Field {form} name="description">
+		<Form.Field {form} name="caption">
 			<Form.Control let:attrs>
 				<Form.Label>Caption</Form.Label>
 				<Textarea
 					{...attrs}
-					bind:value={$formData.description}
+					bind:value={$formData.caption}
 					placeholder="Your project motto, or a brief description..."
 				/>
 			</Form.Control>

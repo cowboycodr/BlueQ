@@ -12,7 +12,7 @@
 	export let data;
 	const { projects } = data;
 
-	let showNewLaunchPageForm = true;
+	let showNewLaunchPageForm = false;
 </script>
 
 <svelte:head>

@@ -1,6 +1,7 @@
 import { superValidate, fail } from 'sveltekit-superforms';
 import { zod } from "sveltekit-superforms/adapters";
 import { launchPageFormSchema } from './forms/schemas.js';
+import { generateUniqueTag } from '$lib/server/utils/tag-utils.js';
 
 export const load = async ({ locals: { supabase, getSession } }) => {
     const session = await getSession();
@@ -23,12 +24,38 @@ export const load = async ({ locals: { supabase, getSession } }) => {
 }
 
 export const actions = {
-    newProject: async (event) => {
-        const form = await superValidate(event, zod(launchPageFormSchema));
+    newProject: async ({ request, locals: { supabase, getUser } }) => {
+        const user = await getUser();
 
+        const form = await superValidate(request, zod(launchPageFormSchema));
 
         if (!form.valid) {
             return fail(400, {
+                launchPageForm: form,
+            });
+        }
+
+        const title = form.data.title;
+        const caption = form.data.caption;
+
+        const tag = await generateUniqueTag(title, supabase);
+
+        const { data, error } = await supabase
+            .from("projects")
+            .insert([
+                {
+                    title,
+                    caption,
+                    tag,
+                    type: "launch",
+                    owner_id: user.id,
+                },
+            ]);
+
+        if (error) {
+            console.error(error);
+
+            return fail(500, {
                 launchPageForm: form,
             });
         }

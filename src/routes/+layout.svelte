@@ -2,6 +2,13 @@
 	import { invalidate } from '$app/navigation';
 	import { onMount } from 'svelte';
 
+	import { inject } from '@vercel/analytics';
+	inject();
+
+	import { injectSpeedInsights } from '@vercel/speed-insights/sveltekit';
+
+	injectSpeedInsights();
+
 	import moment from 'moment';
 
 	import { Toaster } from 'svelte-sonner';

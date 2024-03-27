@@ -14,3 +14,7 @@ export const load = async ({ locals: { supabase, getSession } }) => {
         projects
     }
 }
+
+export const actions = {
+    
+}

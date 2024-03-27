@@ -3,6 +3,8 @@
 
 	import Projects from './projects.svelte';
 
+	import { NewLaunchPageForm } from './forms';
+
 	import { Button } from '$ui/button';
 	import * as Card from '$ui/card';
 	import * as Dropdown from '$ui/dropdown-menu';
@@ -10,6 +12,8 @@
 	export let data;
 	let { projects } = data;
 	$: ({ projects } = data);
+
+	let showNewLaunchPageForm = false;
 </script>
 
 <svelte:head>
@@ -48,7 +52,12 @@
 				</Dropdown.Trigger>
 				<Dropdown.Content>
 					<Dropdown.Group>
-						<Dropdown.Item class="flex space-x-1">
+						<Dropdown.Item
+							class="flex space-x-1"
+							on:click={() => {
+								showNewLaunchPageForm = true;
+							}}
+						>
 							<span> Launch Page </span>
 						</Dropdown.Item>
 						<Dropdown.Item class="flex space-x-1" disabled>
@@ -61,3 +70,12 @@
 		<Projects {projects} />
 	</div>
 </div>
+
+{#if showNewLaunchPageForm}
+	<NewLaunchPageForm
+		form={data.form}
+		on:close={() => {
+			showNewLaunchPageForm = false;
+		}}
+	/>
+{/if}

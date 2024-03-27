@@ -10,10 +10,10 @@
 	import * as Dropdown from '$ui/dropdown-menu';
 
 	export let data;
-	let { projects } = data;
-	$: ({ projects } = data);
+	let { projects, launchPageForm } = data;
+	$: ({ projects, launchPageForm } = data);
 
-	let showNewLaunchPageForm = false;
+	let showNewLaunchPageForm = true;
 </script>
 
 <svelte:head>
@@ -73,7 +73,7 @@
 
 {#if showNewLaunchPageForm}
 	<NewLaunchPageForm
-		form={data.form}
+		form={launchPageForm}
 		on:close={() => {
 			showNewLaunchPageForm = false;
 		}}

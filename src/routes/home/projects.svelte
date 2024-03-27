@@ -34,10 +34,10 @@
 				<Table.Cell class="flex items-center space-x-1 text-muted-foreground">
 					{#if project.type === 'launch'}
 						<Rocket size={16} />
-						<span> Launch Page </span>
+						<span > Launch </span>
 					{:else}
 						<Mails size={16} />
-						<span> Mailing List </span>
+						<span> Mailing </span>
 					{/if}
 				</Table.Cell>
 				<Table.Cell>

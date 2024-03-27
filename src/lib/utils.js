@@ -46,3 +46,17 @@ export const flyAndScale = (
         easing: cubicOut
     };
 };
+
+export function copy(node, text) {
+    const handleClick = () => {
+        navigator.clipboard.writeText(text);
+    }
+
+    node.addEventListener("click", handleClick);
+
+    return {
+        destroy() {
+            node.removeEventListener("click", handleClick);
+        }
+    }
+}

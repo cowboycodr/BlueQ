@@ -1,10 +1,15 @@
 <script>
-	import { Rocket, Mails, LucideSquareArrowOutUpRight, Link } from 'lucide-svelte';
+	import { fade } from 'svelte/transition';
+
+	import { copy } from '$lib/utils.js';
+	import { Rocket, Mails, LucideSquareArrowOutUpRight, Link, Check } from 'lucide-svelte';
 
 	import * as Card from '$ui/card';
 	import * as Table from '$ui/table';
 
 	export let projects;
+
+	let copied = false;
 </script>
 
 <Table.Root>
@@ -40,9 +45,29 @@
 						class="flex w-min items-center space-x-1 rounded-md bg-muted p-1 text-muted-foreground"
 					>
 						<a href="/q/${project.short_code}">
-							blueq.app/{project.short_code}
+							blueq.app/q/{project.short_code}
 						</a>
-						<Link size={12} />
+						{#if !copied}
+							<!-- svelte-ignore a11y-click-events-have-key-events -->
+							<!-- svelte-ignore a11y-no-static-element-interactions -->
+							<div
+								class="cursor-pointer"
+								in:fade
+								use:copy={`https://blueq.app/q/${project.short_code}`}
+								on:click={() => {
+									copied = true;
+									setTimeout(() => {
+										copied = false;
+									}, 1000);
+								}}
+							>
+								<Link size={12} />
+							</div>
+						{:else}
+							<div in:fade>
+								<Check size={12} />
+							</div>
+						{/if}
 					</div>
 				</Table.Cell>
 				<Table.Cell class="text-right md:text-left">{0}</Table.Cell>

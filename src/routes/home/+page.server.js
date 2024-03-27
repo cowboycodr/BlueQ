@@ -4,7 +4,7 @@ import ShortUniqueId from 'short-unique-id';
 import { launchPageFormSchema } from './forms/schemas.js';
 import { generateUniqueTag } from '$lib/server/utils/tag-utils.js';
 
-const uid = new ShortUniqueId({ length: 12 });
+const uid = new ShortUniqueId({ length: 8 });
 
 export const load = async ({ locals: { supabase, getSession } }) => {
     const session = await getSession();

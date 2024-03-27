@@ -1,5 +1,5 @@
 <script>
-	import { Rocket, Mails } from 'lucide-svelte';
+	import { Rocket, Mails, LucideSquareArrowOutUpRight } from 'lucide-svelte';
 
 	import * as Card from '$ui/card';
 	import * as Table from '$ui/table';
@@ -19,17 +19,22 @@
 	<Table.Body>
 		{#each projects as project}
 			<Table.Row>
-				<Table.Cell>{project.title}</Table.Cell>
+				<Table.Cell>
+					<a href={`/project/${project.short_code}`} class="flex items-center space-x-1">
+						<span> {project.title} </span>
+						<LucideSquareArrowOutUpRight class="text-muted-foreground" size={12} />
+					</a>
+				</Table.Cell>
 				<Table.Cell class="flex items-center space-x-1 text-muted-foreground">
 					{#if project.type === 'launch'}
 						<Rocket size={16} />
 						<span> Launch Page </span>
 					{:else}
 						<Mails size={16} />
-                        <span> Mailing List </span>
+						<span> Mailing List </span>
 					{/if}
 				</Table.Cell>
-                <Table.Cell class="text-right md:text-left">{0}</Table.Cell>
+				<Table.Cell class="text-right md:text-left">{0}</Table.Cell>
 			</Table.Row>
 		{/each}
 	</Table.Body>

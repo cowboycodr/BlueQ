@@ -5,7 +5,7 @@
 	import { copy } from '$lib/utils.js';
 	import { Rocket, Mails, LucideSquareArrowOutUpRight, Link, Check } from 'lucide-svelte';
 
-	import * as Card from '$ui/card';
+	import ProjectLink from "./project-link.svelte";
 	import * as Table from '$ui/table';
 
 	export let projects;
@@ -44,34 +44,7 @@
 					</div>
 				</Table.Cell>
 				<Table.Cell>
-					<div
-						class="flex w-min items-center space-x-1 rounded-md bg-muted p-1 text-muted-foreground"
-					>
-						<a href="/q/{project.short_code}">
-							{$page.url.origin}/q/{project.short_code}
-						</a>
-						{#if !copied}
-							<!-- svelte-ignore a11y-click-events-have-key-events -->
-							<!-- svelte-ignore a11y-no-static-element-interactions -->
-							<div
-								class="cursor-pointer"
-								in:fade
-								use:copy={`${$page.url.origin}/q/${project.short_code}`}
-								on:click={() => {
-									copied = true;
-									setTimeout(() => {
-										copied = false;
-									}, 1000);
-								}}
-							>
-								<Link size={12} />
-							</div>
-						{:else}
-							<div in:fade>
-								<Check size={12} />
-							</div>
-						{/if}
-					</div>
+					<ProjectLink shortCode={project.short_code} />
 				</Table.Cell>
 				<Table.Cell class="text-right md:text-left">{0}</Table.Cell>
 			</Table.Row>

@@ -1,6 +1,6 @@
 <script>
 	import DialogForm from './dialog-form.svelte';
-	import { createSuperForm } from './utils';
+	import { createSuperForm } from '$lib/utils/forms';
 	import { launchPageFormSchema } from './schemas';
 
 	import { Input } from '$ui/input';

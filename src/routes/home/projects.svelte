@@ -1,5 +1,6 @@
 <script>
 	import { fade } from 'svelte/transition';
+	import { page } from '$app/stores';
 
 	import { copy } from '$lib/utils.js';
 	import { Rocket, Mails, LucideSquareArrowOutUpRight, Link, Check } from 'lucide-svelte';
@@ -34,7 +35,7 @@
 				<Table.Cell class="flex items-center space-x-1 text-muted-foreground">
 					{#if project.type === 'launch'}
 						<Rocket size={16} />
-						<span > Launch </span>
+						<span> Launch </span>
 					{:else}
 						<Mails size={16} />
 						<span> Mailing </span>
@@ -44,8 +45,8 @@
 					<div
 						class="flex w-min items-center space-x-1 rounded-md bg-muted p-1 text-muted-foreground"
 					>
-						<a href="/q/${project.short_code}">
-							blueq.app/q/{project.short_code}
+						<a href="/q/{project.short_code}">
+							{$page.url.origin}/q/{project.short_code}
 						</a>
 						{#if !copied}
 							<!-- svelte-ignore a11y-click-events-have-key-events -->
@@ -53,7 +54,7 @@
 							<div
 								class="cursor-pointer"
 								in:fade
-								use:copy={`https://blueq.app/q/${project.short_code}`}
+								use:copy={`${$page.url.origin}/q/${project.short_code}`}
 								on:click={() => {
 									copied = true;
 									setTimeout(() => {

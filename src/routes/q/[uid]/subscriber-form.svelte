@@ -1,4 +1,6 @@
 <script>
+	import { toast } from "svelte-sonner";
+
 	import { createSuperForm } from '$lib/utils/forms';
 	import { subscriberFormSchema } from './schemas';
 
@@ -10,7 +12,14 @@
 	export { data as form };
 	export let project;
 
-	const form = createSuperForm(data, subscriberFormSchema);
+	const form = createSuperForm(data, subscriberFormSchema, {
+		onResult: (event) => {
+			if (event.result.type === 'success') {
+				console.log("here");
+				toast.success("Subscribed")
+			}
+		}
+	});
 	const { form: formData, enhance } = form;
 
 	$formData.project_id = project.id;
@@ -37,7 +46,7 @@
 			</Form.Field>
 		</Card.Content>
 		<Card.Footer>
-			<Form.Button>Subscribe</Form.Button>
+			<Form.Button>Join</Form.Button>
 		</Card.Footer>
 	</form>
 </Card.Root>

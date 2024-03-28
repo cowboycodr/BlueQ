@@ -1,13 +1,10 @@
 <script>
-	import { page } from '$app/stores';
-
 	import { SplitScreen } from '$lib/components/layouts';
-
-	import { Button } from '$ui/button';
-	import * as Card from '$ui/card';
+	import SubscriberForm from './subscriber-form.svelte';
 
 	export let data;
-	const { project } = data;
+	let { project, form } = data;
+	$: ({ project, form } = data);
 </script>
 
 <svelte:head>
@@ -26,13 +23,6 @@
 		</p>
 	</div>
 	<div slot="right">
-		<Card.Root>
-			<Card.Header>
-				<Card.Title>Launch list</Card.Title>
-				<Card.Description>
-					Receive launch updates. Sign up for progress notifications.
-				</Card.Description>
-			</Card.Header>
-		</Card.Root>
+		<SubscriberForm {form} {project} />
 	</div>
 </SplitScreen>

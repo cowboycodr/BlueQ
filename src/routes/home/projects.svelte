@@ -32,7 +32,8 @@
 						<LucideSquareArrowOutUpRight class="text-muted-foreground" size={12} />
 					</a>
 				</Table.Cell>
-				<Table.Cell class="flex items-center space-x-1 text-muted-foreground">
+				<Table.Cell>
+					<div class="flex items-center space-x-1 text-muted-foreground">
 					{#if project.type === 'launch'}
 						<Rocket size={16} />
 						<span> Launch </span>
@@ -40,6 +41,7 @@
 						<Mails size={16} />
 						<span> Mailing </span>
 					{/if}
+					</div>
 				</Table.Cell>
 				<Table.Cell>
 					<div

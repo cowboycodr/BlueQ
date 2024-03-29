@@ -16,7 +16,7 @@
 	<meta property="twitter:card" content="summary_large_image" />
 	<meta property="twitter:description" content={project.caption} />
 	<meta property="twitter:image" content={`${$page.url.href}/og`} />
-	<meta property="twitter:title" content="Twitter link preview title" />
+	<meta property="twitter:title" content={project.title} />
 	<meta property="description" content={project.caption} />
 	<meta property="og:image" content={`${$page.url.href}/og`} />
 	<meta property="og:title" content={project.title} />

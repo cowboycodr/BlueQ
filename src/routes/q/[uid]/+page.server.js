@@ -2,19 +2,10 @@ import { superValidate, fail, setError } from 'sveltekit-superforms';
 import { zod } from 'sveltekit-superforms/adapters';
 import { subscriberFormSchema } from './schemas.js';
 
-export const load = async ({ params, locals: { supabase } }) => {
-    const { uid } = params;
-
-    const { data: project, error } = await supabase
-        .from("projects")
-        .select("*")
-        .eq("short_code", uid)
-        .single();
-
+export const load = async ({ locals: { supabase } }) => {
     const form = await superValidate(zod(subscriberFormSchema));
 
     return {
-        project,
         form
     }
 }

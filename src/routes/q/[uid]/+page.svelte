@@ -1,4 +1,6 @@
 <script>
+	import { page } from '$app/stores';
+
 	import { SplitScreen } from '$lib/components/layouts';
 	import SubscriberForm from './subscriber-form.svelte';
 
@@ -11,7 +13,13 @@
 	<title>
 		{project.title} - Launch Page
 	</title>
-	
+	<meta property="twitter:image" content={`${$page.url.href}/og`}>
+	<meta property="twitter:description" content={project.caption}>
+	<meta property="description" content={project.caption} />
+	<meta property="og:image" content={`${$page.url.href}/og`}>
+	<meta property="og:title" content={project.title}>
+	<meta property="og:description" content={project.caption}/>
+	<meta property="og:url" content={$page.url.href}>
 </svelte:head>
 
 <SplitScreen>

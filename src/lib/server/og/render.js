@@ -31,8 +31,6 @@ export async function render(component, {
         width = 1200  // Default width
     } = {} // Default empty object for resolution
 } = {}) {
-    console.log({ props, regular, semi_bold, height, width });
-
     const result = component.render(props);
     const element = toReactNode(`${result.html}<style>${result.css.code}</style>`);
 

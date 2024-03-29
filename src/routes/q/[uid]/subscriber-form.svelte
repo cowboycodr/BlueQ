@@ -15,7 +15,6 @@
 	const form = createSuperForm(data, subscriberFormSchema, {
 		onResult: (event) => {
 			if (event.result.type === 'success') {
-				console.log("here");
 				toast.success("Subscribed")
 			}
 		}

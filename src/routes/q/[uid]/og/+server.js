@@ -1,10 +1,6 @@
-
-import satori from 'satori';
-import { html as toReactNode } from 'satori-html';
-import { Resvg } from '@resvg/resvg-js';
-
 import { read } from '$app/server';
 import { render } from '$lib/server/og';
+
 import GeistRegular from '$lib/fonts/Geist-Regular.otf';
 import GeistSemiBold from '$lib/fonts/Geist-SemiBold.otf';
 import OG from "./og.svelte";
@@ -23,8 +19,8 @@ export const GET = async ({ params, locals: { supabase } }) => {
 
   const og = await render(OG, {
     props: {
-      title: project.title,
-      caption: project.caption
+      title: project?.title,
+      caption: project?.caption,
     },
     fonts: {
       regular: geistRegular,

@@ -1,9 +1,10 @@
-import { read } from '$app/server';
 
 import satori from 'satori';
 import { html as toReactNode } from 'satori-html';
 import { Resvg } from '@resvg/resvg-js';
 
+import { read } from '$app/server';
+import { render } from '$lib/server/og';
 import GeistRegular from '$lib/fonts/Geist-Regular.otf';
 import GeistSemiBold from '$lib/fonts/Geist-SemiBold.otf';
 import OG from "./og.svelte";
@@ -11,10 +12,6 @@ import OG from "./og.svelte";
 const geistRegular = read(GeistRegular).arrayBuffer();
 const geistSemiBold = read(GeistSemiBold).arrayBuffer();
 
-const height = 630;
-const width = 1200;
-
-/** @type {import('./$types').RequestHandler} */
 export const GET = async ({ params, locals: { supabase } }) => {
   const { uid } = params;
 
@@ -24,39 +21,20 @@ export const GET = async ({ params, locals: { supabase } }) => {
     .eq("short_code", uid)
     .single();
 
-  const result = OG.render({ title: project.title, caption: project.caption });
-  const element = toReactNode(`${result.html}<style>${result.css.code}</style>`);
-
-  const svg = await satori(element, {
-    fonts: [
-      {
-        name: 'Geist',
-        data: await geistRegular,
-        style: 'normal'
-      },
-      {
-        name: 'Geist',
-        data: await geistSemiBold,
-        style: 'normal',
-        weight: 600,
-      }
-    ],
-    height,
-    width
+  const og = await render(OG, {
+    props: {
+      title: project.title,
+      caption: project.caption
+    },
+    fonts: {
+      regular: geistRegular,
+      semi_bold: geistSemiBold
+    },
   });
 
-  const resvg = new Resvg(svg, {
-    fitTo: {
-      mode: 'width',
-      value: width
-    }
-  });
-
-  const image = resvg.render();
-
-  return new Response(image.asPng(), {
+  return new Response(og.asPng(), {
     headers: {
       'content-type': 'image/png'
     }
-  });
+  })
 };

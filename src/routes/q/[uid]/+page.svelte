@@ -13,13 +13,15 @@
 	<title>
 		{project.title} - Launch Page
 	</title>
-	<meta property="twitter:image" content={`${$page.url.href}/og`}>
-	<meta property="twitter:description" content={project.caption}>
+	<meta property="twitter:card" content="summary_large_image" />
+	<meta property="twitter:description" content={project.caption} />
+	<meta property="twitter:image" content={`${$page.url.href}/og`} />
+	<meta property="twitter:title" content="Twitter link preview title" />
 	<meta property="description" content={project.caption} />
-	<meta property="og:image" content={`${$page.url.href}/og`}>
-	<meta property="og:title" content={project.title}>
-	<meta property="og:description" content={project.caption}/>
-	<meta property="og:url" content={$page.url.href}>
+	<meta property="og:image" content={`${$page.url.href}/og`} />
+	<meta property="og:title" content={project.title} />
+	<meta property="og:description" content={project.caption} />
+	<meta property="og:url" content={$page.url.href} />
 </svelte:head>
 
 <SplitScreen>

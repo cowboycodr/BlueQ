@@ -11,6 +11,7 @@
 	<title>
 		{project.title} - Launch Page
 	</title>
+	
 </svelte:head>
 
 <SplitScreen>

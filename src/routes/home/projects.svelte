@@ -1,16 +1,10 @@
 <script>
-	import { fade } from 'svelte/transition';
-	import { page } from '$app/stores';
-
-	import { copy } from '$lib/utils.js';
 	import { Rocket, Mails, LucideSquareArrowOutUpRight, Link, Check } from 'lucide-svelte';
 
 	import ProjectLink from "./project-link.svelte";
 	import * as Table from '$ui/table';
 
 	export let projects;
-
-	let copied = false;
 </script>
 
 <Table.Root>

@@ -3,6 +3,8 @@
 
 	import { MailPlus } from 'lucide-svelte';
 
+	import Subscribers from "./subscribers.svelte";
+
 	import { Button } from '$ui/button';
 	import * as Card from '$ui/card';
 	import * as Dropdown from '$ui/dropdown-menu';
@@ -35,9 +37,6 @@
 				<Card.Description>Visits (24hrs)</Card.Description>
 				<Card.Title>0</Card.Title>
 			</Card.Header>
-            <Card.Content>
-
-            </Card.Content>
 		</Card.Root>
 	</div>
 	<div class="pb-2">
@@ -53,6 +52,9 @@
 					<MailPlus size={16} />
 				</Button>
 			</div>
+		</div>
+		<div>
+			<Subscribers {project} subscribers={project.subscribers} />
 		</div>
 	</div>
 </div>

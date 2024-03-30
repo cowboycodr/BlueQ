@@ -3,17 +3,9 @@ import { superValidate, fail, setError } from 'sveltekit-superforms';
 import { zod } from 'sveltekit-superforms/adapters';
 import { subscriberFormSchema } from './schemas.js';
 
-export const load = async ({ locals: { supabase } }) => {
-    const form = await superValidate(zod(subscriberFormSchema));
-
-    return {
-        form
-    }
-}
-
 const geolocate = async (ip) => {
     if (ip === "::1") {
-        return "Unknown"
+        return "Unknown";
     }
 
     let location;
@@ -21,15 +13,52 @@ const geolocate = async (ip) => {
     try {
         location = await ipLocation(ip);
     } catch {
-        return "Unknown"
+        return "Unknown";
     }
 
     try {
         return `${location.city}, ${location.region.name}, ${location.country.name}`;
     } catch {
-        return "Unknown"
+        return "Unknown";
     }
-}
+};
+
+const checkAndLogVisit = async (supabase, id, ip) => {
+    // Check for existing visits in the last 24 hours
+    const { data, error: selectError } = await supabase
+        .from("visits")
+        .select("*")
+        .eq("ip", ip)
+        .gte("created_at", new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString());
+
+    if (selectError) {
+        console.error("Error querying visits:", selectError);
+        return; // Stop execution if there was an error querying
+    }
+
+    // If no visit in the last 24 hours (data is empty), log this visit
+    if (!data || data.length === 0) {
+        const { error: insertError } = await supabase
+            .from("visits")
+            .insert([{ ip, project_id: id }]);
+
+        if (insertError) {
+            console.error("Error logging visit:", insertError);
+        }
+    }
+};
+export const load = async ({ parent, locals: { supabase }, getClientAddress }) => {
+    const { project } = await parent();
+
+    const ip = getClientAddress();
+    await checkAndLogVisit(supabase, project.id, ip);
+
+    const form = await superValidate(zod(subscriberFormSchema));
+
+    return {
+        form
+    };
+};
 
 export const actions = {
     async default({ getClientAddress, request, locals: { supabase } }) {
@@ -46,7 +75,10 @@ export const actions = {
         const ip = getClientAddress();
         const location = await geolocate(ip);
 
-        // check if this user is already subscribed to this project_id
+        // Log the visit
+        await checkAndLogVisit(supabase, ip);
+
+        // Check if this user is already subscribed to this project_id
         const { data: existingSubscriber, error: existingSubscriberError } = await supabase
             .from("subscribers")
             .select("*")
@@ -79,6 +111,6 @@ export const actions = {
 
         return {
             form
-        }
+        };
     }
-}
+};

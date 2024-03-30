@@ -46,7 +46,7 @@
 				<Table.Cell>
 					<ProjectLink shortCode={project.short_code} />
 				</Table.Cell>
-				<Table.Cell class="text-right md:text-left">{0}</Table.Cell>
+				<Table.Cell class="text-right md:text-left">{project.subscriber_count}</Table.Cell>
 			</Table.Row>
 		{/each}
 	</Table.Body>

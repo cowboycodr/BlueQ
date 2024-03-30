@@ -1,4 +1,7 @@
 <script>
+    import { createEventDispatcher } from "svelte";
+    const dispatch = createEventDispatcher();
+
     import moment from "moment";
 
     import * as Table from '$ui/table';
@@ -7,7 +10,16 @@
     export let subscriber;
     export let selected = false;
 
-    $: console.log({ selected })
+    function dispatchSelectState(selected) {
+        if (!selected) {
+            dispatch("deselect", { subscriber })
+            return;
+        }
+
+        dispatch("select", { subscriber });
+    }
+
+    $: dispatchSelectState(selected);
 </script>
 
 <Table.Row>

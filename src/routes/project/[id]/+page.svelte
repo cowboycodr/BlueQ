@@ -1,16 +1,19 @@
 <script>
-    import { page } from '$app/stores';
+	import moment from 'moment';
 
 	import { MailPlus } from 'lucide-svelte';
 
-	import Subscribers from "./subscribers.svelte";
+	import Subscribers from './subscribers.svelte';
 
 	import { Button } from '$ui/button';
 	import * as Card from '$ui/card';
-	import * as Dropdown from '$ui/dropdown-menu';
 
 	export let data;
 	const { project } = data;
+
+	$: subscribersLastDay = project.subscribers.filter((subscriber) =>
+		moment(subscriber.created_at).isAfter(moment().subtract(24, 'hours'))
+	);
 </script>
 
 <svelte:head>
@@ -29,7 +32,7 @@
 		<Card.Root>
 			<Card.Header>
 				<Card.Description>Subscribers (24hrs)</Card.Description>
-				<Card.Title>+0</Card.Title>
+				<Card.Title>{subscribersLastDay.length}</Card.Title>
 			</Card.Header>
 		</Card.Root>
 		<Card.Root>
@@ -46,9 +49,7 @@
 			</div>
 			<div>
 				<Button class="space-x-1">
-                    <span>
-                        New email
-                    </span>
+					<span> New email </span>
 					<MailPlus size={16} />
 				</Button>
 			</div>

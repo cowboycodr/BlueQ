@@ -27,7 +27,7 @@
 		{#each projects as project}
 			<Table.Row>
 				<Table.Cell>
-					<a href={`/project/${project.short_code}`} class="flex items-center space-x-1">
+					<a href={`/project/${project.id}`} class="flex items-center space-x-1">
 						<span> {project.title} </span>
 						<LucideSquareArrowOutUpRight class="text-muted-foreground" size={12} />
 					</a>

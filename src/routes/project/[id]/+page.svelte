@@ -1,7 +1,7 @@
 <script>
 	import moment from 'moment';
 
-	import { MailPlus } from 'lucide-svelte';
+	import { MailPlus, Settings } from 'lucide-svelte';
 
 	import Subscribers from './subscribers.svelte';
 
@@ -24,9 +24,17 @@
 
 <div class="container mx-auto p-2">
 	<nav class="flex items-center justify-between pb-2">
-		<h1 class="text-lg font-semibold">
-			{project.title}
-		</h1>
+		<div class="flex items-center">
+			<h1 class="text-lg font-semibold">
+				{project.title}
+			</h1>
+		</div>
+		<div class="flex items-center">
+			<Button class="space-x-1" variant="ghost">
+				<Settings size={16} />
+				<span class="hidden md:block"> Settings </span>
+			</Button>
+		</div>
 	</nav>
 	<div class="grid gap-2 pb-2 md:grid-cols-2">
 		<Card.Root>
@@ -47,10 +55,10 @@
 			<div>
 				<h1 class="text-lg font-semibold">Subscribers ({project.subscribers.length})</h1>
 			</div>
-			<div>
+			<div class="flex items-center space-x-1">
 				<Button class="space-x-1">
-					<span> New email </span>
 					<MailPlus size={16} />
+					<span> New email </span>
 				</Button>
 			</div>
 		</div>

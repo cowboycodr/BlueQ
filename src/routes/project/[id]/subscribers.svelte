@@ -25,8 +25,6 @@
         // Filter out the deselected subscriber's ID from the 'selected' array
         selected = selected.filter(id => id !== subscriber.id);
     }
-
-    $: console.log({ selected });
 </script>
 
 <Table.Root>

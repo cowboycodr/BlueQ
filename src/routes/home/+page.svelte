@@ -39,7 +39,7 @@
 			</Card.Header>
 		</Card.Root>
 	</div>
-	<div>
+	<div class="pb-2">
 		<div class="flex items-center space-x-1">
 			<h1 class="text-lg font-semibold">Projects</h1>
 			<Dropdown.Root>

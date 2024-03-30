@@ -104,8 +104,6 @@ export const load = async ({ locals: { supabase, getSession } }) => {
 
     const launchPageForm = await superValidate(zod(launchPageFormSchema));
 
-    console.log('projectsWithCounts', projectsWithCounts);
-
     return {
         projects: projectsWithCounts,
         launchPageForm,

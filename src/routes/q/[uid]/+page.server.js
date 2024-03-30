@@ -1,3 +1,4 @@
+import ipLocation from "iplocation";
 import { superValidate, fail, setError } from 'sveltekit-superforms';
 import { zod } from 'sveltekit-superforms/adapters';
 import { subscriberFormSchema } from './schemas.js';
@@ -23,6 +24,9 @@ export const actions = {
         const email = form.data.email;
         const project_id = form.data.project_id;
         const ip = getClientAddress();
+        const location = ipLocation(ip);
+
+        console.log({ location });
 
         // check if this user is already subscribed to this project_id
         const { data: existingSubscriber, error: existingSubscriberError } = await supabase
@@ -42,7 +46,7 @@ export const actions = {
                 {
                     email,
                     project_id,
-                    ip
+                    location,
                 }
             ]);
 

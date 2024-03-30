@@ -11,6 +11,26 @@ export const load = async ({ locals: { supabase } }) => {
     }
 }
 
+const geolocate = async (ip) => {
+    if (ip === "::1") {
+        return "Unknown"
+    }
+
+    let location;
+
+    try {
+        location = await ipLocation(ip);
+    } catch {
+        return "Unknown"
+    }
+
+    try {
+        return `${location.city}, ${location.region.name}, ${location.country.name}`;
+    } catch {
+        return "Unknown"
+    }
+}
+
 export const actions = {
     async default({ getClientAddress, request, locals: { supabase } }) {
         const form = await superValidate(request, zod(subscriberFormSchema));
@@ -24,9 +44,7 @@ export const actions = {
         const email = form.data.email;
         const project_id = form.data.project_id;
         const ip = getClientAddress();
-        const location = ipLocation(ip);
-
-        console.log({ location });
+        const location = await geolocate(ip);
 
         // check if this user is already subscribed to this project_id
         const { data: existingSubscriber, error: existingSubscriberError } = await supabase
@@ -47,6 +65,7 @@ export const actions = {
                     email,
                     project_id,
                     location,
+                    ip,
                 }
             ]);
 

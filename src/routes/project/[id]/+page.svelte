@@ -9,7 +9,7 @@
 	import * as Card from '$ui/card';
 
 	export let data;
-	const { project } = data;
+	const { project, visitsCount } = data;
 
 	$: subscribersLastDay = project.subscribers.filter((subscriber) =>
 		moment(subscriber.created_at).isAfter(moment().subtract(24, 'hours'))
@@ -38,7 +38,7 @@
 		<Card.Root>
 			<Card.Header>
 				<Card.Description>Visits (24hrs)</Card.Description>
-				<Card.Title>0</Card.Title>
+				<Card.Title>{visitsCount}</Card.Title>
 			</Card.Header>
 		</Card.Root>
 	</div>

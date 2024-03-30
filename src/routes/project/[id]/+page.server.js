@@ -16,7 +16,14 @@ export const load = async ({ params, locals: { supabase, getSession } }) => {
         return { project: null }; // or handle the error more appropriately
     }
 
+    const { count: visitsCount, error: visitsError } = await supabase
+        .from('visits')
+        .select('id', { count: 'exact', head: true }) // Only count entries, don't fetch data
+        .eq('project_id', id)
+        .gte('created_at', new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString());
+
     return {
-        project
+        project,
+        visitsCount,
     }
 }

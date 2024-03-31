@@ -24,7 +24,7 @@
 	$: dispatchSelectState(selected);
 </script>
 
-<Table.Row>
+<Table.Row class="{ selected ? "bg-gray-100" : "" }">
 	<Table.Cell>
 		<Checkbox bind:checked={selected} />
 	</Table.Cell>

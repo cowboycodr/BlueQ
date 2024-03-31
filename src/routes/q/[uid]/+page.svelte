@@ -36,4 +36,7 @@
 	<div slot="right">
 		<SubscriberForm {form} {project} />
 	</div>
+	<div slot="footer">
+		Powered by <a class="underline" href="/">BlueQ</a>.
+	</div>
 </SplitScreen>

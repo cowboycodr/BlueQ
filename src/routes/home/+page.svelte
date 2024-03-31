@@ -33,12 +33,6 @@
 				<Card.Title>{totalSubscribers}</Card.Title>
 			</Card.Header>
 		</Card.Root>
-		<Card.Root>
-			<Card.Header>
-				<Card.Description>Visits (24hrs)</Card.Description>
-				<Card.Title>0</Card.Title>
-			</Card.Header>
-		</Card.Root>
 	</div>
 	<div class="pb-2">
 		<div class="flex items-center space-x-1">

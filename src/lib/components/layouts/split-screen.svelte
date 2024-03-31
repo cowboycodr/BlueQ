@@ -1,4 +1,10 @@
-<div class="mx-auto flex min-h-svh w-full max-w-sm flex-col justify-center md:flex-row md:max-w-none">
+<script>
+	const SLOTS = $$props.$$slots;
+</script>
+
+<div
+	class="mx-auto flex min-h-svh w-full max-w-sm flex-col justify-center md:max-w-none md:flex-row"
+>
 	<div class="flex items-center justify-center md:h-svh md:w-[50%]">
 		<div class="w-full p-2 md:w-[350px] md:p-0">
 			<slot name="left" />
@@ -10,3 +16,11 @@
 		</div>
 	</div>
 </div>
+
+{#if SLOTS.footer}
+	<div class="absolute bottom-5 flex w-full justify-center">
+		<p class="rounded-lg bg-white p-1 text-muted-foreground">
+			<slot name="footer" />
+		</p>
+	</div>
+{/if}

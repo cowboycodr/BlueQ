@@ -13,6 +13,7 @@
 	const { projects } = data;
 
 	let showNewLaunchPageForm = false;
+	$: totalSubscribers = projects.reduce((total, project) => total + project.subscriber_count, 0);
 </script>
 
 <svelte:head>
@@ -28,8 +29,8 @@
 	<div class="grid gap-2 pb-2 md:grid-cols-2">
 		<Card.Root>
 			<Card.Header>
-				<Card.Description>Subscribers (24hrs)</Card.Description>
-				<Card.Title>+0</Card.Title>
+				<Card.Description>Subscribers</Card.Description>
+				<Card.Title>{totalSubscribers}</Card.Title>
 			</Card.Header>
 		</Card.Root>
 		<Card.Root>

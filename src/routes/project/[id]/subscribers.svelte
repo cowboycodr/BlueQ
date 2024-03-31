@@ -26,7 +26,7 @@
 	}
 </script>
 
-<Table.Root>
+<Table.Root class="min-w-[600px]">
 	<Table.Caption>
 		A list of people subscribed to {project.title}.
 	</Table.Caption>

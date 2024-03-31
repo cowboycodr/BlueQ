@@ -17,7 +17,7 @@
 	</div>
 </div>
 
-{#if SLOTS.footer}
+{#if SLOTS?.footer}
 	<div class="absolute bottom-5 flex w-full justify-center">
 		<p class="rounded-lg bg-white p-1 text-muted-foreground">
 			<slot name="footer" />

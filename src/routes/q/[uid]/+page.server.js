@@ -23,7 +23,7 @@ const geolocate = async (ip) => {
     }
 };
 
-const checkAndLogVisit = async (supabase, id, ip) => {
+const checkAndLogVisit = async ({ supabase, project_id, ip }) => {
     // Check for existing visits in the last 24 hours
     const { data, error: selectError } = await supabase
         .from("visits")
@@ -40,7 +40,7 @@ const checkAndLogVisit = async (supabase, id, ip) => {
     if (!data || data.length === 0) {
         const { error: insertError } = await supabase
             .from("visits")
-            .insert([{ ip, project_id: id }]);
+            .insert([{ ip, project_id }]);
 
         if (insertError) {
             console.error("Error logging visit:", insertError);
@@ -51,7 +51,7 @@ export const load = async ({ parent, locals: { supabase }, getClientAddress }) =
     const { project } = await parent();
 
     const ip = getClientAddress();
-    await checkAndLogVisit(supabase, project.id, ip);
+    await checkAndLogVisit({ supabase, project_id: project.id, ip });
 
     const form = await superValidate(zod(subscriberFormSchema));
 
@@ -74,9 +74,6 @@ export const actions = {
         const project_id = form.data.project_id;
         const ip = getClientAddress();
         const location = await geolocate(ip);
-
-        // Log the visit
-        await checkAndLogVisit(supabase, ip);
 
         // Check if this user is already subscribed to this project_id
         const { data: existingSubscriber, error: existingSubscriberError } = await supabase

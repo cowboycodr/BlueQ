@@ -1,13 +1,13 @@
 <script>
-	import { MoreHorizontal } from 'lucide-svelte';
-
 	import { createEventDispatcher } from 'svelte';
 	const dispatch = createEventDispatcher();
 
 	import moment from 'moment';
+	import { MoreHorizontal } from 'lucide-svelte';
 
-	import * as Table from '$ui/table';
+	import { Button } from '$ui/button';
 	import { Checkbox } from '$ui/checkbox';
+	import * as Table from '$ui/table';
 
 	export let subscriber;
 	export let selected = false;
@@ -39,7 +39,9 @@
 	</Table.Cell>
 	<Table.Cell>
 		<div class="flex items-center">
-			<MoreHorizontal size="16" />
+			<Button variant="ghost">
+				<MoreHorizontal size="16" />
+			</Button>
 		</div>
 	</Table.Cell>
 </Table.Row>

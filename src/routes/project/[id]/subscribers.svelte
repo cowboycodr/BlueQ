@@ -36,15 +36,13 @@
 				<Checkbox bind:checked={masterSelected} />
 			</Table.Head>
 			<Table.Head>
-				<div class="flex items-center space-x-1">
-					<Input placeholder="Email" />
-					<Button variant="outline">
-						<span> Search </span>
-					</Button>
+				<div class="flex w-96 items-center space-x-1">
+					<Input class="text-primary" placeholder="Email (type here to search)" />
 				</div>
 			</Table.Head>
 			<Table.Head>Location</Table.Head>
 			<Table.Head>Joined</Table.Head>
+			<Table.Head />
 		</Table.Row>
 	</Table.Header>
 	<Table.Body>

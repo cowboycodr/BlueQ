@@ -1,4 +1,5 @@
 import { clsx } from "clsx";
+import { toast } from "svelte-sonner";
 import { twMerge } from "tailwind-merge";
 import { cubicOut } from "svelte/easing";
 
@@ -50,6 +51,7 @@ export const flyAndScale = (
 export function copy(node, text) {
     const handleClick = () => {
         navigator.clipboard.writeText(text);
+        toast.success("Copied");
     }
 
     node.addEventListener("click", handleClick);

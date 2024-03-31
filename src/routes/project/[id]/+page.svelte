@@ -51,7 +51,7 @@
 		</Card.Root>
 	</div>
 	<div class="pb-2">
-		<div class="flex items-center justify-between space-x-1">
+		<div class="flex items-center justify-between space-x-1 pb-2">
 			<div>
 				<h1 class="text-lg font-semibold">Subscribers ({project.subscribers.length})</h1>
 			</div>

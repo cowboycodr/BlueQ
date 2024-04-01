@@ -1,12 +1,14 @@
 <script>
+	import { page } from '$app/stores';
+
 	import moment from 'moment';
+	import { MailPlus, Settings, ArrowLeftIcon, Copy } from 'lucide-svelte';
 
-	import { MailPlus, Settings } from 'lucide-svelte';
-
-	import Subscribers from './subscribers.svelte';
-
+	import { copy } from '$utils';
 	import { Button } from '$ui/button';
 	import * as Card from '$ui/card';
+
+	import Subscribers from './subscribers.svelte';
 
 	export let data;
 	const { project, visitsCount } = data;
@@ -24,10 +26,23 @@
 
 <div class="container mx-auto p-2">
 	<nav class="flex items-center justify-between pb-2">
-		<div class="flex items-center">
+		<div class="flex items-center space-x-1">
+			<Button href="/home" variant="ghost">
+				<ArrowLeftIcon size={16} />
+			</Button>
 			<h1 class="text-lg font-semibold">
 				{project.title}
 			</h1>
+			<div
+				class="flex items-center space-x-1 rounded-md bg-muted p-1 text-sm text-muted-foreground"
+			>
+				<a href="/q/{project.short_code}">
+					{$page.url.origin}/q/{project.short_code}
+				</a>
+				<div class="cursor-pointer" use:copy={`${$page.url.origin}/q/${project.short_code}`}>
+					<Copy size={16} />
+				</div>
+			</div>
 		</div>
 		<div class="flex items-center">
 			<Button class="space-x-1" variant="ghost">

@@ -1,7 +1,6 @@
 <script>
 	import { onMount } from 'svelte';
 	import Fuse from 'fuse.js';
-	import { Button } from '$ui/button';
 	import { Input } from '$ui/input';
 	import { Checkbox } from '$ui/checkbox';
 	import * as Table from '$ui/table';

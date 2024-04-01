@@ -1,5 +1,6 @@
 <script>
 	import { createEventDispatcher } from 'svelte';
+	import { enhance } from '$app/forms';
 	const dispatch = createEventDispatcher();
 
 	import moment from 'moment';
@@ -55,14 +56,19 @@
 					<Dropdown.Separator />
 					<Dropdown.Group>
 						<Dropdown.Item>
-							<div class="flex space-x-1" use:copy={subscriber.email}>
+							<button class="flex space-x-1" use:copy={subscriber.email}>
 								<Copy size={16} />
 								<span> Copy email </span>
-							</div>
+                            </button>
 						</Dropdown.Item>
-						<Dropdown.Item class="flex space-x-1">
-							<Trash size={16} class="text-destructive" />
-							<span class="text-destructive"> Delete </span>
+						<Dropdown.Item>
+							<form method="POST" action="?/deleteSubscriber" use:enhance>
+								<input type="hidden" name="subscriber_id" value={subscriber.id} />
+								<button type="submit" class="flex space-x-1">
+									<Trash size={16} class="text-destructive" />
+									<span class="text-destructive"> Delete </span>
+								</button>
+							</form>
 						</Dropdown.Item>
 					</Dropdown.Group>
 				</Dropdown.Content>

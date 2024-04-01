@@ -1,3 +1,5 @@
+import { fail } from "@sveltejs/kit";
+
 export const load = async ({ params, locals: { supabase, getSession } }) => {
     const session = await getSession();
 
@@ -25,5 +27,26 @@ export const load = async ({ params, locals: { supabase, getSession } }) => {
     return {
         project,
         visitsCount,
+    }
+}
+
+export const actions = {
+    async deleteSubscriber({ request, locals: { supabase } }) {
+        const formData = await request.formData();
+
+        const subscriberId = formData.get("subscriber_id");
+
+        const { data, error } = await supabase
+            .from("subscribers")
+            .delete()
+            .eq('id', subscriberId);
+
+        if (error) {
+            return fail(500, {
+                message: error.message
+            });
+        }
+
+        return { data };
     }
 }

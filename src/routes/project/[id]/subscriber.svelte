@@ -62,7 +62,7 @@
                             </button>
 						</Dropdown.Item>
 						<Dropdown.Item>
-							<form method="POST" action="?/deleteSubscriber" use:enhance>
+							<form method="POST" action="?/deleteSubscriber">
 								<input type="hidden" name="subscriber_id" value={subscriber.id} />
 								<button type="submit" class="flex space-x-1">
 									<Trash size={16} class="text-destructive" />

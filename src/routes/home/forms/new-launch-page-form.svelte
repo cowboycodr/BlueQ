@@ -40,6 +40,6 @@
 			<Form.Description>This caption that will appear on your landing page.</Form.Description>
 			<Form.FieldErrors />
 		</Form.Field>
-		<Form.Button>Submit</Form.Button>
+		<Form.Button>Create</Form.Button>
 	</form>
 </DialogForm>

@@ -1,6 +1,5 @@
 <script>
 	import { createEventDispatcher } from 'svelte';
-	import { enhance } from '$app/forms';
 	const dispatch = createEventDispatcher();
 
 	import moment from 'moment';

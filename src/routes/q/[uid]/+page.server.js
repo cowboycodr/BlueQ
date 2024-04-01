@@ -5,22 +5,19 @@ import { subscriberFormSchema } from './schemas.js';
 
 const geolocate = async (ip) => {
     if (ip === "::1") {
-        return "Unknown";
+        return [];
     }
 
     let location;
 
     try {
         location = await ipLocation(ip);
-    } catch {
-        return "Unknown";
+    } catch (error) {
+        console.log(error);
+        return [];
     }
 
-    try {
-        return `${location.city}, ${location.region.name}, ${location.country.name}`;
-    } catch {
-        return "Unknown";
-    }
+    return location;
 };
 
 const checkAndLogVisit = async ({ supabase, project_id, ip }) => {
@@ -36,11 +33,13 @@ const checkAndLogVisit = async ({ supabase, project_id, ip }) => {
         return; // Stop execution if there was an error querying
     }
 
+    const location = await geolocate(ip);
+
     // If no visit in the last 24 hours (data is empty), log this visit
     if (!data || data.length === 0) {
         const { error: insertError } = await supabase
             .from("visits")
-            .insert([{ ip, project_id }]);
+            .insert([{ ip, project_id, location }]);
 
         if (insertError) {
             console.error("Error logging visit:", insertError);

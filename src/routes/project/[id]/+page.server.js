@@ -1,5 +1,9 @@
 import { fail } from "@sveltejs/kit";
 
+import { superValidate, fail } from "sveltekit-superforms";
+import { zod } from "sveltekit-superforms/adapters";
+import { emailSchema } from "./forms/schemas.js";
+
 export const load = async ({ params, locals: { supabase, getSession } }) => {
     const session = await getSession();
 
@@ -24,9 +28,12 @@ export const load = async ({ params, locals: { supabase, getSession } }) => {
         .eq('project_id', id)
         .gte('created_at', new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString());
 
+    const createEmailForm = await superValidate(zod(emailSchema));
+
     return {
         project,
         visitsCount,
+        createEmailForm,
     }
 }
 
@@ -48,5 +55,5 @@ export const actions = {
         }
 
         return { data };
-    }
+    },
 }

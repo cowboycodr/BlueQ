@@ -20,7 +20,7 @@
 	<hr />
 	<article style={twi('py-5')}>
 		{#each paragraphs as paragraph}
-			<p style={twi('pt-3')}>{paragraph}</p>
+			<p style={twi('pt-2')}>{paragraph}</p>
 		{/each}
 	</article>
 	<hr />

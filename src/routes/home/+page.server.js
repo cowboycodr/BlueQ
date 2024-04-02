@@ -2,8 +2,12 @@ import { superValidate, fail } from 'sveltekit-superforms';
 import { zod } from "sveltekit-superforms/adapters";
 import ShortUniqueId from 'short-unique-id';
 import { launchPageFormSchema } from './forms/schemas.js';
-import { generateUniqueTag } from '$lib/server/utils/tag-utils.js';
+import { Resend } from 'resend';
 
+import { generateUniqueTag } from '$lib/server/utils/tag-utils.js';
+import { RESEND_API_KEY } from '$env/static/private';
+
+const resend = new Resend(RESEND_API_KEY);
 const uid = new ShortUniqueId({ length: 8 });
 
 export const load = async ({ locals: { supabase, getSession } }) => {
@@ -62,6 +66,8 @@ export const actions = {
         const tag = await generateUniqueTag(title, supabase);
         const shortCode = uid.rnd();
 
+        const { data: { id: audience_id } } = await resend.audiences.create({ name: title });
+
         const { data, error } = await supabase
             .from("projects")
             .insert([
@@ -72,6 +78,7 @@ export const actions = {
                     type: "launch",
                     owner_id: user.id,
                     short_code: shortCode,
+                    audience_id,
                 },
             ]);
 

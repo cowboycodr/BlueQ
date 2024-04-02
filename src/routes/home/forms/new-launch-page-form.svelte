@@ -1,5 +1,5 @@
 <script>
-	import DialogForm from './dialog-form.svelte';
+	import DialogForm from '$lib/components/misc/dialog-form.svelte';
 	import { createSuperForm } from '$lib/utils/forms';
 	import { launchPageFormSchema } from './schemas';
 
@@ -10,8 +10,8 @@
 	let data;
 	export { data as form };
 
-    const form = createSuperForm(data, launchPageFormSchema);
-	const { form: formData, enhance } = form;
+	const form = createSuperForm(data, launchPageFormSchema);
+	const { form: formData } = form;
 </script>
 
 <DialogForm on:close>

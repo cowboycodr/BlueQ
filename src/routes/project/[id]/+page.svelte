@@ -8,10 +8,13 @@
 	import { Button } from '$ui/button';
 	import * as Card from '$ui/card';
 
+	import { CreateEmailForm } from "./forms";
 	import Subscribers from './subscribers.svelte';
 
 	export let data;
 	const { project, visitsCount } = data;
+
+	let showCreateEmailForm = false;
 
 	$: subscribersLastDay = project.subscribers.filter((subscriber) =>
 		moment(subscriber.created_at).isAfter(moment().subtract(24, 'hours'))
@@ -71,9 +74,9 @@
 				<h1 class="text-lg font-semibold">Subscribers ({project.subscribers.length})</h1>
 			</div>
 			<div class="flex items-center space-x-1">
-				<Button class="space-x-1">
+				<Button on:click={() => { showCreateEmailForm = true; }} class="space-x-1">
 					<MailPlus size={16} />
-					<span> New email </span>
+					<span> Create email </span>
 				</Button>
 			</div>
 		</div>
@@ -82,3 +85,12 @@
 		</div>
 	</div>
 </div>
+
+{#if showCreateEmailForm}
+	<CreateEmailForm 
+		form={data.createEmailForm}
+		on:close={() => {
+			showCreateEmailForm = false;
+		}}
+	/>
+{/if}

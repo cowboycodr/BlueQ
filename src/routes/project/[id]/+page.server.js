@@ -1,6 +1,6 @@
 import { fail } from "@sveltejs/kit";
 
-import { superValidate, fail } from "sveltekit-superforms";
+import { superValidate } from "sveltekit-superforms";
 import { zod } from "sveltekit-superforms/adapters";
 import { emailSchema } from "./forms/schemas.js";
 

@@ -66,7 +66,8 @@ export const actions = {
         const tag = await generateUniqueTag(title, supabase);
         const shortCode = uid.rnd();
 
-        const { data: { id: audience_id } } = await resend.audiences.create({ name: title });
+        // We'll look at this later, currently Resend doesn't support emailing audiences via API
+        // const { data: { id: audience_id } } = await resend.audiences.create({ name: title });
 
         const { data, error } = await supabase
             .from("projects")
@@ -78,7 +79,7 @@ export const actions = {
                     type: "launch",
                     owner_id: user.id,
                     short_code: shortCode,
-                    audience_id,
+                    // audience_id,
                 },
             ]);
 

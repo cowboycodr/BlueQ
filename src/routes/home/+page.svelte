@@ -40,8 +40,8 @@
 			<Dropdown.Root>
 				<Dropdown.Trigger>
 					<Button class="flex space-x-1 px-2" variant="ghost">
-						<ChevronDown size={16} />
 						<span> New </span>
+						<ChevronDown size={16} />
 					</Button>
 				</Dropdown.Trigger>
 				<Dropdown.Content>

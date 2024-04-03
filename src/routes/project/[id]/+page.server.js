@@ -43,22 +43,18 @@ export const actions = {
 
         const subscriberId = formData.get("subscriber_id");
 
-        console.log({ subscriberId })
-
         const { data, error } = await supabase
             .from("subscribers")
             .delete()
             .eq('id', subscriberId);
 
         if (error) {
-            console.log(error);
+            console.error(error);
 
             return fail(500, {
                 message: error.message
             });
         }
-
-        console.log({ data, error });
 
         return { data };
     },

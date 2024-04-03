@@ -13,7 +13,6 @@ const geolocate = async (ip) => {
     try {
         location = await ipLocation(ip);
     } catch (error) {
-        console.log(error);
         return [];
     }
 

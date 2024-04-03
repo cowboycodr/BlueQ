@@ -56,7 +56,7 @@ export const POST = async ({ request, locals: { supabase, getUser } }) => {
         }
 
         if (!data) {
-            console.log("Subscribers assosciated with this project were not found.")
+            console.error("Subscribers assosciated with this project were not found.")
 
             throw error(400, {
                 message: "No project subscribers found."

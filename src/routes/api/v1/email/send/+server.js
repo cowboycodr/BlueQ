@@ -10,8 +10,7 @@ const resend = new Resend(RESEND_API_KEY);
 export const POST = async ({ request, locals: { supabase, getUser } }) => {
     const user = await getUser();
     const body = await request.json();
-    console.log({ body });
-    const { project_id, recipients, email: { subject, title, content } } = body;
+    const { project_id, email: { subject, title, content } } = body;
 
     if (!user || !user.id) {
         return error(400, {
@@ -24,7 +23,8 @@ export const POST = async ({ request, locals: { supabase, getUser } }) => {
             .from("projects")
             .select("*")
             .eq("id", project_id)
-            .eq("owner_id", user.id);
+            .eq("owner_id", user.id)
+            .single();
 
         if (error) {
             throw error(501, {
@@ -48,19 +48,36 @@ export const POST = async ({ request, locals: { supabase, getUser } }) => {
             .eq("project_id", project_id);
 
         if (error) {
+            console.error(error);
+
             throw error(501, {
                 message: "Encountered an error"
             })
         }
 
         if (!data) {
+            console.log("Subscribers assosciated with this project were not found.")
+
             throw error(400, {
-                message: "Project not found"
+                message: "No project subscribers found."
             })
         }
+
+        return data;
     })();
 
-    console.log({ length: subscribers.length(), subscribers })
+    const recipients = subscribers.map(subscriber => {
+        return subscriber.email || null;
+    })
+
+    const template = Email.render({ title, content, author: project.title });
+
+    const { data, error } = await resend.emails.send({
+        from: `${project.title} <${project.tag}@blueq.app>`,
+        to: recipients,
+        subject,
+        html: template.html,
+    })
 
     return json(200, {
         message: "Success"

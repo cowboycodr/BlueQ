@@ -50,8 +50,6 @@ export const load = async ({ locals: { supabase, getSession } }) => {
 
 export const actions = {
     newProject: async ({ request, locals: { supabase, getUser } }) => {
-        const user = await getUser();
-
         const form = await superValidate(request, zod(launchPageFormSchema));
 
         if (!form.valid) {
@@ -59,6 +57,8 @@ export const actions = {
                 launchPageForm: form,
             });
         }
+
+        const user = await getUser();
 
         const title = form.data.title;
         const caption = form.data.caption;

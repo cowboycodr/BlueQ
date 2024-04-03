@@ -43,17 +43,56 @@ export const actions = {
 
         const subscriberId = formData.get("subscriber_id");
 
+        console.log({ subscriberId })
+
         const { data, error } = await supabase
             .from("subscribers")
             .delete()
             .eq('id', subscriberId);
 
         if (error) {
+            console.log(error);
+
             return fail(500, {
                 message: error.message
             });
         }
 
+        console.log({ data, error });
+
         return { data };
     },
+    async sendEmail({ params, request, fetch }) {
+        const form = await superValidate(request, zod(emailSchema));
+
+        if (!form.valid) {
+            return fail(400, {
+                createEmailForm: form
+            })
+        }
+
+        const subject = form.data.subject;
+        const title = form.data.title;
+        const content = form.data.content;
+
+        const { id: project_id } = params;
+
+        const email = {
+            subject,
+            title,
+            content,
+        }
+
+        await fetch("/api/v1/email/send", {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ project_id, email }),
+        })
+
+        return {
+            createEmailForm: form
+        }
+    }
 }

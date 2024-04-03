@@ -13,14 +13,14 @@
 		<h1 style={twi('text-center text-5xl italic')}>
 			{title}
 		</h1>
-		<p style={twi('text-center text-[#64748b]')}>
+		<p style={twi('text-center text-3xl text-[#64748b]')}>
 			{author}
 		</p>
 	</header>
 	<hr />
 	<article style={twi('py-5')}>
 		{#each paragraphs as paragraph}
-			<p style={twi('pt-2')}>{paragraph}</p>
+			<p style={twi('text-lg')}>{paragraph}</p>
 		{/each}
 	</article>
 	<hr />

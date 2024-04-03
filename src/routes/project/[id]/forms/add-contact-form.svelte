@@ -10,7 +10,7 @@
 	export { data as form };
 
 	const form = createSuperForm(data, contactSchema);
-	const { form: formData } = form;
+	const { form: formData, enhance } = form;
 </script>
 
 <DialogForm on:close>

@@ -21,6 +21,7 @@
 				<Form.Label>Email</Form.Label>
 				<Input {...attrs} bind:value={$formData.email} placeholder="example@email.com" />
 			</Form.Control>
+			<Form.Description>The new contact's email.</Form.Description>
 			<Form.FieldErrors />
 		</Form.Field>
 		<Form.Button>Add</Form.Button>

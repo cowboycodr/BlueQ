@@ -1,5 +1,3 @@
-import Email from "./email.svelte";
+import Email from './email.svelte';
 
-export {
-    Email
-}
+export { Email };

@@ -1,5 +1,5 @@
 import { superValidate, fail } from 'sveltekit-superforms';
-import { zod } from "sveltekit-superforms/adapters";
+import { zod } from 'sveltekit-superforms/adapters';
 import ShortUniqueId from 'short-unique-id';
 import { launchPageFormSchema } from './forms/schemas.js';
 import { Resend } from 'resend';
@@ -11,88 +11,88 @@ const resend = new Resend(RESEND_API_KEY);
 const uid = new ShortUniqueId({ length: 8 });
 
 export const load = async ({ locals: { supabase, getSession } }) => {
-    const session = await getSession();
+	const session = await getSession();
 
-    // Fetch projects
-    const { data: projectsData, error: projectsError } = await supabase
-        .from("projects")
-        .select("*")
-        .eq("owner_id", session.user.id)
-        .order("created_at", { ascending: false });
+	// Fetch projects
+	const { data: projectsData, error: projectsError } = await supabase
+		.from('projects')
+		.select('*')
+		.eq('owner_id', session.user.id)
+		.order('created_at', { ascending: false });
 
-    if (projectsError) {
-        console.error(projectsError);
-        return []; // or handle the error appropriately
-    }
+	if (projectsError) {
+		console.error(projectsError);
+		return []; // or handle the error appropriately
+	}
 
-    // Manually fetch subscriber counts for each project
-    const projectsWithCounts = await Promise.all(projectsData.map(async project => {
-        const { data: countData, error: countError } = await supabase
-            .from("subscribers")
-            .select("id", { count: 'exact' })
-            .eq("project_id", project.id); // Assuming 'project_id' is the FK column in 'subscribers'
+	// Manually fetch subscriber counts for each project
+	const projectsWithCounts = await Promise.all(
+		projectsData.map(async (project) => {
+			const { data: countData, error: countError } = await supabase
+				.from('subscribers')
+				.select('id', { count: 'exact' })
+				.eq('project_id', project.id); // Assuming 'project_id' is the FK column in 'subscribers'
 
-        if (countError) {
-            console.error(countError);
-            return { ...project, subscriber_count: 0 }; // or handle the error appropriately
-        }
+			if (countError) {
+				console.error(countError);
+				return { ...project, subscriber_count: 0 }; // or handle the error appropriately
+			}
 
-        return { ...project, subscriber_count: countData.length }; // or use count if using exact count
-    }));
+			return { ...project, subscriber_count: countData.length }; // or use count if using exact count
+		})
+	);
 
-    const launchPageForm = await superValidate(zod(launchPageFormSchema));
+	const launchPageForm = await superValidate(zod(launchPageFormSchema));
 
-    return {
-        projects: projectsWithCounts,
-        launchPageForm,
-    }
-}
+	return {
+		projects: projectsWithCounts,
+		launchPageForm
+	};
+};
 
 export const actions = {
-    newProject: async ({ request, locals: { supabase, getUser } }) => {
-        const form = await superValidate(request, zod(launchPageFormSchema));
+	newProject: async ({ request, locals: { supabase, getUser } }) => {
+		const form = await superValidate(request, zod(launchPageFormSchema));
 
-        if (!form.valid) {
-            return fail(400, {
-                launchPageForm: form,
-            });
-        }
+		if (!form.valid) {
+			return fail(400, {
+				launchPageForm: form
+			});
+		}
 
-        const user = await getUser();
+		const user = await getUser();
 
-        const title = form.data.title;
-        const caption = form.data.caption;
+		const title = form.data.title;
+		const caption = form.data.caption;
 
-        const tag = await generateUniqueTag(title, supabase);
-        const shortCode = uid.rnd();
+		const tag = await generateUniqueTag(title, supabase);
+		const shortCode = uid.rnd();
 
-        // We'll look at this later, currently Resend doesn't support emailing audiences via API
-        // const { data: { id: audience_id } } = await resend.audiences.create({ name: title });
+		// We'll look at this later, currently Resend doesn't support emailing audiences via API
+		// const { data: { id: audience_id } } = await resend.audiences.create({ name: title });
 
-        const { data, error } = await supabase
-            .from("projects")
-            .insert([
-                {
-                    title,
-                    caption,
-                    tag,
-                    type: "launch",
-                    owner_id: user.id,
-                    short_code: shortCode,
-                    // audience_id,
-                },
-            ]);
+		const { data, error } = await supabase.from('projects').insert([
+			{
+				title,
+				caption,
+				tag,
+				type: 'launch',
+				owner_id: user.id,
+				short_code: shortCode
+				// audience_id,
+			}
+		]);
 
-        if (error) {
-            console.error(error);
+		if (error) {
+			console.error(error);
 
-            return fail(500, {
-                launchPageForm: form,
-            });
-        }
+			return fail(500, {
+				launchPageForm: form
+			});
+		}
 
-        return {
-            launchPageForm: form,
-        };
-    },
+		return {
+			launchPageForm: form
+		};
+	}
 };

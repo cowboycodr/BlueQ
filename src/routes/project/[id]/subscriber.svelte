@@ -59,7 +59,7 @@
 							<button class="flex space-x-1" use:copy={subscriber.email}>
 								<Copy size={16} />
 								<span> Copy email </span>
-                            </button>
+							</button>
 						</Dropdown.Item>
 						<Dropdown.Item>
 							<form method="POST" action="?/deleteSubscriber">

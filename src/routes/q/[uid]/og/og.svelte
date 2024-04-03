@@ -9,6 +9,6 @@
 		<p class="max-w-[95%] text-center text-5xl text-[#64748b]">{caption}</p>
 	</div>
 	<div class="absolute bottom-5 flex text-center">
-		<p class="text-[#64748b] text-2xl">Powered by BlueQ.</p>
+		<p class="text-2xl text-[#64748b]">Powered by BlueQ.</p>
 	</div>
 </div>

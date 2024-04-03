@@ -1,7 +1,7 @@
 <script>
 	import { Rocket, Mails, LucideSquareArrowOutUpRight, Link, Check } from 'lucide-svelte';
 
-	import ProjectLink from "./project-link.svelte";
+	import ProjectLink from './project-link.svelte';
 	import * as Table from '$ui/table';
 
 	export let projects;
@@ -28,13 +28,13 @@
 				</Table.Cell>
 				<Table.Cell>
 					<div class="flex items-center space-x-1 text-muted-foreground">
-					{#if project.type === 'launch'}
-						<Rocket size={16} />
-						<span> Launch </span>
-					{:else}
-						<Mails size={16} />
-						<span> Mailing </span>
-					{/if}
+						{#if project.type === 'launch'}
+							<Rocket size={16} />
+							<span> Launch </span>
+						{:else}
+							<Mails size={16} />
+							<span> Mailing </span>
+						{/if}
 					</div>
 				</Table.Cell>
 				<Table.Cell>

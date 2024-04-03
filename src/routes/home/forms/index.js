@@ -1,5 +1,3 @@
-import NewLaunchPageForm from "./new-launch-page-form.svelte";
+import NewLaunchPageForm from './new-launch-page-form.svelte';
 
-export {
-    NewLaunchPageForm,
-}
+export { NewLaunchPageForm };

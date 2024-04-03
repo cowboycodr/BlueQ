@@ -1,12 +1,12 @@
-import { redirect } from '@sveltejs/kit'
+import { redirect } from '@sveltejs/kit';
 
 export const GET = async ({ url, locals: { supabase } }) => {
-  const code = url.searchParams.get('code')
-  const redirectTo = url.searchParams.get('r') || "/";
+	const code = url.searchParams.get('code');
+	const redirectTo = url.searchParams.get('r') || '/';
 
-  if (code) {
-    await supabase.auth.exchangeCodeForSession(code)
-  }
+	if (code) {
+		await supabase.auth.exchangeCodeForSession(code);
+	}
 
-  throw redirect(303, redirectTo);
-}
+	throw redirect(303, redirectTo);
+};

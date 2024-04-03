@@ -2,19 +2,21 @@
 	import { page } from '$app/stores';
 
 	import moment from 'moment';
-	import { MailPlus, Settings, ArrowLeftIcon, Copy } from 'lucide-svelte';
+	import { MailPlus, Settings, ArrowLeftIcon, Copy, ChevronDown } from 'lucide-svelte';
 
 	import { copy } from '$utils';
 	import { Button } from '$ui/button';
 	import * as Card from '$ui/card';
+	import * as Dropdown from '$ui/dropdown-menu';
 
-	import { CreateEmailForm } from "./forms";
+	import { CreateEmailForm, AddContactForm } from './forms';
 	import Subscribers from './subscribers.svelte';
 
 	export let data;
 	const { project, visitsCount } = data;
 
 	let showCreateEmailForm = false;
+	let showAddContactForm = false;
 
 	$: subscribersLastDay = project.subscribers.filter((subscriber) =>
 		moment(subscriber.created_at).isAfter(moment().subtract(24, 'hours'))
@@ -70,11 +72,36 @@
 	</div>
 	<div class="pb-2">
 		<div class="flex items-center justify-between space-x-1 pb-2">
-			<div>
+			<div class="flex items-center space-x-1">
 				<h1 class="text-lg font-semibold">Subscribers ({project.subscribers.length})</h1>
+				<Dropdown.Root>
+					<Dropdown.Trigger>
+						<Button class="flex space-x-1 px-2" variant="ghost">
+							<span> Add </span>
+							<ChevronDown size={16} />
+						</Button>
+					</Dropdown.Trigger>
+					<Dropdown.Content>
+						<Dropdown.Group>
+							<Dropdown.Item
+								class="flex space-x-1"
+								on:click={() => {
+									showAddContactForm = true;
+								}}
+							>
+								<span> Contact </span>
+							</Dropdown.Item>
+						</Dropdown.Group>
+					</Dropdown.Content>
+				</Dropdown.Root>
 			</div>
 			<div class="flex items-center space-x-1">
-				<Button on:click={() => { showCreateEmailForm = true; }} class="space-x-1">
+				<Button
+					on:click={() => {
+						showCreateEmailForm = true;
+					}}
+					class="space-x-1"
+				>
 					<MailPlus size={16} />
 					<span> Create email </span>
 				</Button>
@@ -87,10 +114,19 @@
 </div>
 
 {#if showCreateEmailForm}
-	<CreateEmailForm 
+	<CreateEmailForm
 		form={data.createEmailForm}
 		on:close={() => {
 			showCreateEmailForm = false;
+		}}
+	/>
+{/if}
+
+{#if showAddContactForm}
+	<AddContactForm
+		form={data.addContactForm}
+		on:close={() => {
+			showAddContactForm = false;
 		}}
 	/>
 {/if}

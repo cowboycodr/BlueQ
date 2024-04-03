@@ -11,7 +11,6 @@
 	import * as Table from '$ui/table';
 
 	import { copy } from '$utils';
-	import { enhance } from '$app/forms';
 
 	export let subscriber;
 	export let selected = false;

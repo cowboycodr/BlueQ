@@ -37,6 +37,8 @@
 	}
 
 	function handleDeselect(ev) {
+		masterSelected = false;
+
 		const { subscriber } = ev.detail;
 
 		// Filter out the deselected subscriber's ID from the 'selected' array

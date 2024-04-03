@@ -22,7 +22,7 @@
 			keys: ['email'], // Define keys to search in
 			includeScore: true, // Include score to sort by relevance
 			isCaseSensitive: false,
-			threshold: minScore,
+			threshold: minScore
 		};
 		fuse = new Fuse(subscribers, options);
 

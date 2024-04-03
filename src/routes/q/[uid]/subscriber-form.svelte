@@ -1,5 +1,5 @@
 <script>
-	import { toast } from "svelte-sonner";
+	import { toast } from 'svelte-sonner';
 
 	import { createSuperForm } from '$lib/utils/forms';
 	import { subscriberFormSchema } from './schemas';
@@ -15,7 +15,7 @@
 	const form = createSuperForm(data, subscriberFormSchema, {
 		onResult: (event) => {
 			if (event.result.type === 'success') {
-				toast.success("Subscribed")
+				toast.success('Subscribed');
 			}
 		}
 	});

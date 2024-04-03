@@ -1,5 +1,5 @@
 <script>
-	import DialogForm from '$lib/components/misc/dialog-form.svelte';
+	import { DialogForm } from '$components/forms';
 	import { createSuperForm } from '$utils/forms';
 	import { contactSchema, emailSchema } from './schemas';
 

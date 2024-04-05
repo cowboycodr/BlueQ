@@ -77,21 +77,21 @@ export const POST = async ({ request, locals: { supabase, getUser } }) => {
 	const author = `${project.title} <${project.tag}@blueq.app>`;
 	const html = template.html;
 
-	const emails = recipients.map(recipient => {
+	const emails = recipients.map((recipient) => {
 		return {
 			from: author,
 			to: recipient,
 			subject,
 			html
-		}
+		};
 	});
 
 	const { data, error } = await resend.batch.send(emails);
 
 	if (error) {
 		return error(500, {
-			message: "Failed to deliver emails"
-		})
+			message: 'Failed to deliver emails'
+		});
 	}
 
 	return json(200, {

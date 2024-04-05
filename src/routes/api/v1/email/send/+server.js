@@ -74,13 +74,25 @@ export const POST = async ({ request, locals: { supabase, getUser } }) => {
 	});
 
 	const template = Email.render({ title, content, author: project.title });
+	const author = `${project.title} <${project.tag}@blueq.app>`;
+	const html = template.html;
 
-	const { data, error } = await resend.emails.send({
-		from: `${project.title} <${project.tag}@blueq.app>`,
-		to: recipients,
-		subject,
-		html: template.html
+	const emails = recipients.map(recipient => {
+		return {
+			from: author,
+			to: recipient,
+			subject,
+			html
+		}
 	});
+
+	const { data, error } = await resend.batch.send(emails);
+
+	if (error) {
+		return error(500, {
+			message: "Failed to deliver emails"
+		})
+	}
 
 	return json(200, {
 		message: 'Success'

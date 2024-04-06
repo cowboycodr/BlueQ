@@ -10,6 +10,7 @@
 	import StarterKit from '@tiptap/starter-kit';
 	import Typography from '@tiptap/extension-typography';
 	import Placeholder from '@tiptap/extension-placeholder';
+	import Link from '@tiptap/extension-link';
 
 	export let element;
 	export let editor;
@@ -31,7 +32,8 @@
 							return "Paragraph"
 						}
 					}
-				})
+				}),
+				Link,
 			],
 			onTransaction() {
 				editor = editor;

@@ -59,7 +59,10 @@ const config = {
 				sans: ['Geist']
 			}
 		}
-	}
+	},
+	plugins: [
+		require('@tailwindcss/typography'),
+	]
 };
 
 export default config;

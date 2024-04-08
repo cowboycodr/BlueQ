@@ -6,6 +6,7 @@
 	import { Separator } from '$ui/separator';
 	import { Label } from '$ui/label';
 
+	import Header from './header.svelte';
 	import EmailDetails from './email-details.svelte';
 
 	export let data;
@@ -13,11 +14,15 @@
 
 	let editor;
 	let content;
+	let subject;
+	let author;
 </script>
 
-<main class="mx-auto max-w-[600px]">
-	<div class="py-10">
-		<EmailDetails {project} />
+<Header {subject} />
+
+<main class="mx-auto max-w-[600px] px-2">
+	<div>
+		<EmailDetails {project} bind:subject bind:author />
 	</div>
 	<Editor bind:editor bind:content />
 	{#if editor}

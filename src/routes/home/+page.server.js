@@ -10,14 +10,14 @@ import { RESEND_API_KEY } from '$env/static/private';
 const resend = new Resend(RESEND_API_KEY);
 const uid = new ShortUniqueId({ length: 8 });
 
-export const load = async ({ locals: { supabase, getSession } }) => {
-	const session = await getSession();
+export const load = async ({ locals: { supabase, getUser } }) => {
+	const user = await getUser();
 
 	// Fetch projects
 	const { data: projectsData, error: projectsError } = await supabase
 		.from('projects')
 		.select('*')
-		.eq('owner_id', session.user.id)
+		.eq('owner_id', user.id)
 		.order('created_at', { ascending: false });
 
 	if (projectsError) {

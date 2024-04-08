@@ -96,14 +96,9 @@
 				</Dropdown.Root>
 			</div>
 			<div class="flex items-center space-x-1">
-				<Button
-					on:click={() => {
-						showCreateEmailForm = true;
-					}}
-					class="space-x-1"
-				>
+				<Button href="{project.id}/compose" class="space-x-1">
 					<MailPlus size={16} />
-					<span> Create email </span>
+					<span> Compose </span>
 				</Button>
 			</div>
 		</div>

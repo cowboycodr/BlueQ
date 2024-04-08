@@ -4,13 +4,13 @@ import { superValidate } from 'sveltekit-superforms';
 import { zod } from 'sveltekit-superforms/adapters';
 import { emailSchema, contactSchema } from './forms/schemas.js';
 
-export const load = async ({ parent, locals: { supabase, getSession } }) => {
+export const load = async ({ parent, locals: { supabase } }) => {
 	const { project } = await parent();
 
 	const { count: visitsCount, error: visitsError } = await supabase
 		.from('visits')
 		.select('id', { count: 'exact', head: true }) // Only count entries, don't fetch data
-		.eq('project_id', id)
+		.eq('project_id', project.id)
 		.gte('created_at', new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString());
 
 	const createEmailForm = await superValidate(zod(emailSchema));

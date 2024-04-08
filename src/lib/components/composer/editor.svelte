@@ -1,10 +1,7 @@
 <script>
-	import "./composer.pcss";
+	import './composer.pcss';
 
-	import { onMount, onDestroy } from 'svelte';
-
-	import Toolbar from './toolbar.svelte';
-
+	import { onMount } from 'svelte';
 	import { Editor } from '@tiptap/core';
 
 	import StarterKit from '@tiptap/starter-kit';
@@ -19,35 +16,33 @@
 	onMount(() => {
 		editor = new Editor({
 			element: element,
+			content: content,
 			extensions: [
 				StarterKit,
 				Typography,
 				Placeholder.configure({
 					placeholder({ node }) {
-						if (node.type.name === "heading") {
-							return "Heading"
+						if (node.type.name === 'heading') {
+							return 'Heading';
 						}
 
-						if (node.type.name === "paragraph") {
-							return "Paragraph"
+						if (node.type.name === 'paragraph') {
+							return 'Paragraph';
 						}
 					}
 				}),
-				Link,
+				Link
 			],
 			onTransaction() {
 				editor = editor;
 			},
 			autofocus: true
 		});
-	});
 
-	onDestroy(() => {
-		if (editor) {
+		return () => {
 			editor.destroy();
-		}
+		};
 	});
 </script>
 
-<div class="pt-20"></div>
 <div class="prose *:outline-none prose-p:my-2 prose-p:py-0 prose-p:text-lg" bind:this={element} />

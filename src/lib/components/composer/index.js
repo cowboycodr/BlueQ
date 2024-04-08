@@ -1,7 +1,4 @@
-import Editor from "./editor.svelte";
-import Toolbar from "./toolbar.svelte";
+import Editor from './editor.svelte';
+import Toolbar from './toolbar.svelte';
 
-export {
-    Editor,
-    Toolbar,
-}
+export { Editor, Toolbar };

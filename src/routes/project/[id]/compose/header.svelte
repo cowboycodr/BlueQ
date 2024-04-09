@@ -4,9 +4,24 @@
 
 	export let editor;
 	export let subject;
+
+	function getContent() {
+		if (!editor) {
+			return "";
+		}
+
+		const content = editor.getHTML();
+		console.log({ content });
+
+		return content;
+	}
+
+	$: content = getContent(editor);
 </script>
 
-<header class="sticky top-0 flex w-full items-center justify-between border-b p-5 bg-white bg-opacity-75 z-50 backdrop-blur-lg">
+<header
+	class="sticky top-0 z-50 flex w-full items-center justify-between border-b bg-white bg-opacity-75 p-5 backdrop-blur-lg"
+>
 	<div class="text-lg font-semibold">
 		<span>Blue</span><span class="text-blue-600">Q</span>
 	</div>
@@ -18,11 +33,14 @@
 		</span>
 	</div>
 	<div>
-		<Button class="flex items-center space-x-1">
-			<span> Send </span>
-			<span>
-				<Send size={16} />
-			</span>
-		</Button>
+		<form action="?/send" method="POST">
+			<input type="hidden" name="content" value={content} />
+			<Button class="flex items-center space-x-1" type="submit">
+				<span> Send </span>
+				<span>
+					<Send size={16} />
+				</span>
+			</Button>
+		</form>
 	</div>
 </header>

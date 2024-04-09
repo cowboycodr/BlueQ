@@ -2,7 +2,6 @@
 	import { onMount } from 'svelte';
 	import { Heading, Text, Bold, Italic, Link } from 'lucide-svelte';
 
-	import { Separator } from '$ui/separator';
 	import LinkTool from './link.svelte';
 	import ToolbarIcon from './toolbar-icon.svelte';
 

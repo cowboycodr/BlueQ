@@ -5,13 +5,13 @@
 	export let project;
 
 	export let author;
-	export let subject;
+	export let subject = "Untitled";
 
 	let authorTag = project.tag;
 	$: author = `${authorTag}@blueq.app`;
 </script>
 
-<div class="py-10">
+<div>
 	<div>
 		<div>
 			<Label>From</Label>

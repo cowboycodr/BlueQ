@@ -1,9 +1,8 @@
 import { json, error } from '@sveltejs/kit';
+import DOMPurify from 'isomorphic-dompurify';
 
 import { Resend } from 'resend';
 import { RESEND_API_KEY } from '$env/static/private';
-
-import { Email } from '$lib/emails';
 
 const resend = new Resend(RESEND_API_KEY);
 
@@ -12,11 +11,11 @@ export const POST = async ({ request, locals: { supabase, getUser } }) => {
 	const body = await request.json();
 	const {
 		project_id,
-		email: { subject, title, content }
+		email: { subject, content, author_tag }
 	} = body;
 
 	if (!user || !user.id) {
-		return error(400, {
+		throw error(400, {
 			message: 'User not found.'
 		});
 	}
@@ -45,13 +44,13 @@ export const POST = async ({ request, locals: { supabase, getUser } }) => {
 	})();
 
 	const subscribers = await (async () => {
-		const { data, error } = await supabase
+		const { data, error: errorObject } = await supabase
 			.from('subscribers')
 			.select('*')
 			.eq('project_id', project_id);
 
-		if (error) {
-			console.error(error);
+		if (errorObject) {
+			console.error(errorObject);
 
 			throw error(501, {
 				message: 'Encountered an error'
@@ -73,26 +72,32 @@ export const POST = async ({ request, locals: { supabase, getUser } }) => {
 		return subscriber.email || null;
 	});
 
-	const template = Email.render({ title, content, author: project.title });
-	const author = `${project.title} <${project.tag}@blueq.app>`;
-	const html = template.html;
+	const author = `${project.title} <${author_tag}@blueq.app>`;
+	const html = content;
 
 	const emails = recipients.map((recipient) => {
 		return {
 			from: author,
 			to: recipient,
 			subject,
-			html
+			html,
 		};
 	});
 
-	const { data, error } = await resend.batch.send(emails);
+	console.log({ emails });
 
-	if (error) {
+	const { data, error: errorObject } = await resend.batch.send(emails);
+
+	if (errorObject) {
+		console.error(errorObject);
+
 		return error(500, {
 			message: 'Failed to deliver emails'
 		});
 	}
+
+	console.log({ data });
+	console.log("email sent successfully")
 
 	return json(200, {
 		message: 'Success'

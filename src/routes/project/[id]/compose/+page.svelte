@@ -1,10 +1,5 @@
 <script>
-	import { onMount } from 'svelte';
-
 	import { Editor, Toolbar } from '$lib/components/composer';
-	import { Button } from '$ui/button';
-	import { Separator } from '$ui/separator';
-	import { Label } from '$ui/label';
 
 	import Header from './header.svelte';
 	import EmailDetails from './email-details.svelte';
@@ -15,17 +10,19 @@
 	let editor;
 	let content;
 	let subject;
-	let author;
+	let authorTag;
 </script>
 
 <svelte:head>
 	<title>Composing / {project.title} - BlueQ</title>
 </svelte:head>
 
-<Header {editor} {subject} />
+<Header {editor} {subject} {authorTag} />
 
 <main class="mx-auto max-w-[600px] px-2">
-		<EmailDetails {project} bind:subject bind:author />
+	<div class="py-10">
+		<EmailDetails {project} bind:subject bind:authorTag />
+	</div>
 	<Editor bind:editor bind:content />
 	{#if editor}
 		<div class="sticky bottom-5">

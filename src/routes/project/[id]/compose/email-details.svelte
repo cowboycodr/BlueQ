@@ -4,11 +4,9 @@
 
 	export let project;
 
-	export let author;
 	export let subject = "Untitled";
 
-	let authorTag = project.tag;
-	$: author = `${authorTag}@blueq.app`;
+	export let authorTag = project.tag;
 </script>
 
 <div>

@@ -1,13 +1,26 @@
+<script>
+	import { page } from '$app/stores';
+</script>
+
 <svelte:head>
 	<title>BlueQ - Redefining how businesses connect with people.</title>
+	<meta property="twitter:card" content="summary_large_image" />
+	<meta property="twitter:description" content="Redefining how businesses connect with people." />
+	<meta property="twitter:image" content={`${$page.url.origin}/og`} />
+	<meta property="twitter:title" content="BlueQ" />
+	<meta property="description" content="Redefining how businesses connect with people." />
+	<meta property="og:image" content={`${$page.url.href}/og`} />
+	<meta property="og:title" content="BlueQ" />
+	<meta property="og:description" content="Redefining how businesses connect with people." />
+	<meta property="og:url" content={$page.url.href} />
 </svelte:head>
 
 <div class="min-h-svh w-svw bg-blue-600">
 	<div class="container prose py-20 prose-p:text-xl">
 		<p class="flex space-x-5">
 			<a href="/hello">Sign up</a>
-            <a href="/newsletter">Newsletter</a>
-            <a href="/blog">Blog</a>
+			<a href="/newsletter">Newsletter</a>
+			<a href="/blog">Blog</a>
 		</p>
 		<p>Redefining how businesses connect with people.</p>
 		<p>Something fundamental shifted in the way businesses approach their audience.</p>
@@ -89,7 +102,7 @@
 				<p>Kian McKenna</p>
 			</div>
 			<div class="w-full">
-                <p>2024</p>
+				<p>2024</p>
 				<p>Copyright © BlueQ</p>
 				<p>Kansas City, Kansas, United States</p>
 			</div>

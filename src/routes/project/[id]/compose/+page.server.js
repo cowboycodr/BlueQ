@@ -1,13 +1,8 @@
+import { prose } from '$lib/pragma';
+
 export const actions = {
     async send({ params, request, fetch }) {
         const { id } = params;
-
-        const template = await (async () => {
-            const response = await fetch("/template.html");
-            const template = await response.text();
-
-            return template;
-        })();
 
         const formData = await request.formData();
 
@@ -15,7 +10,7 @@ export const actions = {
         const subject = formData.get("subject");
         const author_tag = formData.get("author_tag");
 
-        const html = template.replace("{{{ content }}}", content);
+        const html = prose(`<div class="prose font-sans">${content}</div>`);
 
         // TODO: Adapt resend api
         await fetch("/api/v1/email/send", {

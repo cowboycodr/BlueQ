@@ -16,6 +16,9 @@
 </svelte:head>
 
 <div class="min-h-svh w-svw bg-blue-600">
+	<div class="fixed top-0 flex p-5">
+		<p class="z-50 rounded-md bg-blue-700 px-2 py-1 text-white">Early Alpha</p>
+	</div>
 	<div class="container prose py-20 prose-p:text-xl">
 		<p class="flex space-x-5">
 			<a href="/hello">Sign up</a>

@@ -4,7 +4,7 @@
 
 	export let project;
 
-	export let subject = "Untitled";
+	export let subject = 'Untitled';
 
 	export let authorTag = project.tag;
 </script>

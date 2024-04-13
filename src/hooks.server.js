@@ -1,13 +1,13 @@
-import {sequence} from '@sveltejs/kit/hooks';
+import { sequence } from '@sveltejs/kit/hooks';
 import * as Sentry from '@sentry/sveltekit';
 // src/hooks.server.js
 import { PUBLIC_SUPABASE_URL, PUBLIC_SUPABASE_ANON_KEY } from '$env/static/public';
 import { createSupabaseServerClient } from '@supabase/auth-helpers-sveltekit';
 
 Sentry.init({
-    dsn: "https://332fb854d600680a4979a1ae56ce1d72@o4506655287738368.ingest.us.sentry.io/4506655289114624",
-    tracesSampleRate: 1
-})
+	dsn: 'https://332fb854d600680a4979a1ae56ce1d72@o4506655287738368.ingest.us.sentry.io/4506655289114624',
+	tracesSampleRate: 1
+});
 
 export const handle = sequence(Sentry.sentryHandle(), async ({ event, resolve }) => {
 	event.locals.supabase = createSupabaseServerClient({

@@ -1,7 +1,4 @@
-import { pragma } from "./pragma";
-import { prose } from "./prose";
+import { pragma } from './pragma';
+import { prose } from './prose';
 
-export {
-    pragma,
-    prose
-};
+export { pragma, prose };

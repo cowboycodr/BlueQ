@@ -80,7 +80,7 @@ export const POST = async ({ request, locals: { supabase, getUser } }) => {
 			from: author,
 			to: recipient,
 			subject,
-			html,
+			html
 		};
 	});
 
@@ -97,7 +97,7 @@ export const POST = async ({ request, locals: { supabase, getUser } }) => {
 	}
 
 	console.log({ data });
-	console.log("email sent successfully")
+	console.log('email sent successfully');
 
 	return json(200, {
 		message: 'Success'
